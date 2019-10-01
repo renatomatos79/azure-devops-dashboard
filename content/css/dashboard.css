@@ -1,0 +1,38 @@
+/* lib/VSS.SDK.min.js */
+body {
+    background-color: rgb(255, 255, 255);
+    color: white;
+    margin: 10px;
+    font-family: "Segoe UI VSS (Regular)", "-apple-system", BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* site */
+.text-font-size-small {
+    font-size: small;
+}
+
+.icon-plus {
+    background-image: url("./img/plus-icon-16.png");
+    background-repeat: no-repeat;
+    background-position-y: 5px;
+    background-size: 32px;
+}
+
+/* animation */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.25s ease-out;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.card-size {
+    max-width: 32rem;    
+} 
+
+.card-header-size {
+    height: 35px;    
+} 
