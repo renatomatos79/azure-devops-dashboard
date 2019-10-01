@@ -40,11 +40,18 @@ VSS.init({
     usePlatformScripts: true
 });
 
+function addToken(xhr){
+    var encodedData = btoa(":" + SECURITY_TOKEN);
+    encodedData = "Basic " + encodedData;
+
+    xhr.setRequestHeader('Authorization', encodedData);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+}
+
+
 /** Gets all release definitions for Service Fabric in the path '\3-SF'. */
 function getReleaseDefinitions() {
     let uri = ENDPOINT + PROJECT_NAME + PROJECT_NAME + "_apis/release/definitions";
-    var encodedData = btoa(":" + SECURITY_TOKEN);
-    encodedData = "Basic " + encodedData;
 
     $.ajax({
         type: "GET",
@@ -56,8 +63,7 @@ function getReleaseDefinitions() {
             searchText: SEACH_PREFIX
         },
         beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', encodedData);
-            xhr.setRequestHeader('Content-Type', 'application/json');
+            addToken(xhr);
         },
         dataType: 'json'
     }).done(function (data, textStatus, jqXHR) {
@@ -72,25 +78,27 @@ function getReleaseDefinitions() {
         });
 
         releaseList = sortByKeyAsc(releaseList, 'definitionName');
-        app.isReleaseListLoaded = true;
+
         app.releaseList = releaseList.map(function(el){ 
             return { 
                 definitionId: el.definitionId, 
                 definitionName: el.definitionName, 
-                isChecked: true
+                definitionLink: "#",
+                isChecked: true,
+                development: [],
+                quality: [],
+                staging: [],
+                production: []
             };
         });
-
-        $.each(releaseList, function (index, value) {
-            // build the dashboard
-            let cssId = value.definitionName.replace(' ', '-').toLowerCase();
-            addNewReleaseTableRow(value.definitionId, value.definitionName, cssId, 'badge-info');
-
-            //console.log(definitionName + ', definitionId: ' + definitionId);
-            //if (definitionName === 'SF UniversalCatalog') {
-            getReleaseDefinition(value.definitionId, value.definitionName);
-            //}
+        
+        $.each(releaseList, function (index, item) {
+            getReleaseDefinition(item.definitionId, item.definitionName);
         });
+        
+        // app.isReleaseListLoaded = true;        
+
+
     }).fail(function (jqXHR, textStatus, errorThrown) {
         console.log('getReleaseDefinitions() response status: ' + jqXHR.status + ', textStatus: ' + textStatus + ', errorThrown: ' + errorThrown);
         console.log(jqXHR);
@@ -105,8 +113,6 @@ function getReleaseDefinitions() {
  */
 function getReleaseDefinition(definitionId, definitionName) {
     let uri = ENDPOINT + PROJECT_NAME + PROJECT_NAME + "_apis/release/definitions/" + definitionId;
-    var encodedData = btoa(":" + SECURITY_TOKEN);
-    encodedData = "Basic " + encodedData;
 
     $.ajax({
         type: "GET",
@@ -115,8 +121,7 @@ function getReleaseDefinition(definitionId, definitionName) {
             "api-version": "5.0",
         },
         beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', encodedData);
-            xhr.setRequestHeader('Content-Type', 'application/json');
+            addToken(xhr);
         },
         dataType: 'json'
     }).done(function (data, textStatus, jqXHR) {
@@ -139,10 +144,10 @@ function getReleaseDefinition(definitionId, definitionName) {
 
         // getting information data...
         let cssId = definitionName.replace(' ', '-').toLowerCase();
-        getLastSucceededDeploymentInfo(cssId, ENVIRONMENT_DEV1, developmentDefinitionEnvironmentId);
-        getLastSucceededDeploymentInfo(cssId, ENVIRONMENT_QA1, qualityDefinitionEnvironmentId);
-        getLastSucceededDeploymentInfo(cssId, ENVIRONMENT_STG1, stagingDefinitionEnvironmentId);
-        getLastSucceededDeploymentInfo(cssId, ENVIRONMENT_PRD1, productionDefinitionEnvironmentId);
+        getLastSucceededDeploymentInfo(definitionId, definitionName, cssId, ENVIRONMENT_DEV1, developmentDefinitionEnvironmentId);
+        getLastSucceededDeploymentInfo(definitionId, definitionName, cssId, ENVIRONMENT_QA1, qualityDefinitionEnvironmentId);
+        getLastSucceededDeploymentInfo(definitionId, definitionName, cssId, ENVIRONMENT_STG1, stagingDefinitionEnvironmentId);
+        getLastSucceededDeploymentInfo(definitionId, definitionName, cssId, ENVIRONMENT_PRD1, productionDefinitionEnvironmentId);
 
     }).fail(function (jqXHR, textStatus, errorThrown) {
         console.log('getReleaseDefinition() response status: ' + jqXHR.status + ', textStatus: ' + textStatus + ', errorThrown: ' + errorThrown);
@@ -158,8 +163,6 @@ function getReleaseDefinition(definitionId, definitionName) {
  */
 function getReleases(cssId, searchText, path) {
     let uri = ENDPOINT + PROJECT_NAME + PROJECT_NAME + "_apis/release/releases";
-    var encodedData = btoa(":" + SECURITY_TOKEN);
-    encodedData = "Basic " + encodedData;
 
     $.ajax({
         type: "GET",
@@ -170,8 +173,7 @@ function getReleases(cssId, searchText, path) {
             searchText: searchText
         },
         beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', encodedData);
-            xhr.setRequestHeader('Content-Type', 'application/json');
+            addToken(xhr);
         },
         dataType: 'json'
     }).done(function (data, textStatus, jqXHR) {
@@ -199,20 +201,12 @@ function getReleaseById(cssId, releaseListIds) {
     let releaseId = releaseListIds[0];
     if (releaseId) {
         let uri = ENDPOINT + PROJECT_NAME + PROJECT_NAME + "_apis/release/releases/" + releaseId;
-        var encodedData = btoa(":" + SECURITY_TOKEN);
-        encodedData = "Basic " + encodedData;
 
         $.ajax({
             type: "GET",
             url: uri,
-            //data: {
-            //    "api-version": "5.0",
-            //    //"$top":1,
-            //    searchText: searchText
-            //},
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', encodedData);
-                xhr.setRequestHeader('Content-Type', 'application/json');
+                addToken(xhr);
             },
             dataType: 'json'
         }).done(function (data, textStatus, jqXHR) {
@@ -300,11 +294,9 @@ function setDashboardValues(cssId, environment, releaseName, status, definitionI
  * @param {any} environment The environment id.
  * @param {any} definitionEnvironmentId The enviornment id for Development, Quality, Staging and Production.
  */
-function getLastSucceededDeploymentInfo(cssId, environment, definitionEnvironmentId) {
+function getLastSucceededDeploymentInfo(definitionId, definitionName, cssId, environment, definitionEnvironmentId) {
     if (definitionEnvironmentId && definitionEnvironmentId > 0) {
         let uri = ENDPOINT + PROJECT_NAME + PROJECT_NAME + "_apis/release/deployments";
-        var encodedData = btoa(":" + SECURITY_TOKEN);
-        encodedData = "Basic " + encodedData;
 
         $.ajax({
             type: "GET",
@@ -316,8 +308,7 @@ function getLastSucceededDeploymentInfo(cssId, environment, definitionEnvironmen
                 definitionEnvironmentId: definitionEnvironmentId
             },
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', encodedData);
-                xhr.setRequestHeader('Content-Type', 'application/json');
+                addToken(xhr);
             },
             dataType: 'json'
         }).done(function (data, textStatus, jqXHR) {
@@ -336,11 +327,10 @@ function getLastSucceededDeploymentInfo(cssId, environment, definitionEnvironmen
                     status = true;
                 }
 
-                let definitionId = value.releaseDefinition.id;
                 if (hasSucceededInfo === false && (value.deploymentStatus === SUCCEEDED || value.deploymentStatus === PARTIALLY_SUCCEEDED)) {
                     const buildId = value.release.artifacts[0].definitionReference.version.id;
                     //console.log(releaseName + " - buildId: " + buildId);
-                    setReleaseProperties(cssId, environment, buildId, releaseName, definitionId, releaseId, status);
+                    setReleaseProperties(definitionId, definitionName, cssId, environment, buildId, releaseName, releaseId, status);
                     hasSucceededInfo = true;
                     if (hasFailedInfo === false) {
                         return false; // break iteration because if the first release is succeeded then there is no need to get failed ones.
@@ -349,7 +339,7 @@ function getLastSucceededDeploymentInfo(cssId, environment, definitionEnvironmen
                     const buildId = value.release.artifacts[0].definitionReference.version.id;
                     //console.log(releaseName + " - buildId: " + buildId);
                     const environment2 = environment.slice(0, -1) + "2";
-                    setReleaseProperties(cssId, environment2, buildId, releaseName, definitionId, releaseId, status);
+                    setReleaseProperties(definitionId, definitionName, cssId, environment2, buildId, releaseName, releaseId, status);
                     hasFailedInfo = true;
                 } else if (hasSucceededInfo && hasFailedInfo) {
                     return false; // break iteration
@@ -397,50 +387,50 @@ function setStatusProperties(id, isSuccess) {
  * @param {any} releaseId The release name id.
  * @param {any} badgeTitleColor The badge background color (defaults to 'badge-info').
  */
-function addNewReleaseTableRow(definitionId, releaseTitle, releaseId, badgeTitleColor) {
+function addNewReleaseTableRow(releaseTitle, releaseId, badgeTitleColor) {
     if (!badgeTitleColor) {
         badgeTitleColor = 'badge-info';
     }
 
     $("div#dashboard-rows-container:last").append(`
-        <div id="` + releaseId + `-row" name="`+definitionId+`-row" class="row dashboard-row-padding-bottom">
-            <div class="col">
-                <div id="` + releaseId + `-dev-card" class="card">
-                    <div class="card-body2">
-                        <div><a href="#" target="_blank" class="card-title" id="` + releaseId + `-dev-release-link"><span class="badge ` + badgeTitleColor + ` badge-card-title">` + releaseTitle + `</span></a></div>
-                        <div id="` + releaseId + `-` + ENVIRONMENT_DEV1 + `-div" class="card-text margin-bottom"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_DEV1 + `" href="#" target="_blank"></a> <div class="align-top"><i id="` + releaseId + `-` + ENVIRONMENT_DEV1 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_DEV1 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_DEV1 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
-                        <div id="` + releaseId + `-` + ENVIRONMENT_DEV2 + `-div" class="card-text"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_DEV2 + `" href="#" target="_blank"></a> <div class="align-top"> <i id="` + releaseId + `-` + ENVIRONMENT_DEV2 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_DEV2 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_DEV2 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
-                    </div>
-                </div>
+<div id="` + releaseId + `-row" class="row dashboard-row-padding-bottom">
+    <div class="col">
+        <div id="` + releaseId + `-dev-card" class="card">
+            <div class="card-body2">
+                <div><a href="#" target="_blank" class="card-title" id="` + releaseId + `-dev-release-link"><span class="badge ` + badgeTitleColor + ` badge-card-title">` + releaseTitle + `</span></a></div>
+                <div id="` + releaseId + `-` + ENVIRONMENT_DEV1 + `-div" class="card-text margin-bottom"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_DEV1 + `" href="#" target="_blank"></a> <div class="align-top"><i id="` + releaseId + `-` + ENVIRONMENT_DEV1 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_DEV1 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_DEV1 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
+                <div id="` + releaseId + `-` + ENVIRONMENT_DEV2 + `-div" class="card-text"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_DEV2 + `" href="#" target="_blank"></a> <div class="align-top"> <i id="` + releaseId + `-` + ENVIRONMENT_DEV2 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_DEV2 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_DEV2 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
             </div>
-            <div class="col">
-                <div id="` + releaseId + `-qa-card" class="card">
-                    <div class="card-body2">
-                        <div><a href="#" target="_blank" class="card-title" id="` + releaseId + `-qa-release-link"><span class="badge ` + badgeTitleColor + ` badge-card-title">` + releaseTitle + `</span></a></div>
-                        <div id="` + releaseId + `-` + ENVIRONMENT_QA1 + `-div" class="card-text margin-bottom"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_QA1 + `" href="#" target="_blank"></a> <div class="align-top"><i id="` + releaseId + `-` + ENVIRONMENT_QA1 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_QA1 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_QA1 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
-                        <div id="` + releaseId + `-` + ENVIRONMENT_QA2 + `-div" class="card-text"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_QA2 + `" href="#" target="_blank"></a> <div class="align-top"><i id="` + releaseId + `-` + ENVIRONMENT_QA2 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_QA2 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_QA2 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
-                    </div>
-                </div>
+        </div>
+    </div>
+    <div class="col">
+        <div id="` + releaseId + `-qa-card" class="card">
+            <div class="card-body2">
+                <div><a href="#" target="_blank" class="card-title" id="` + releaseId + `-qa-release-link"><span class="badge ` + badgeTitleColor + ` badge-card-title">` + releaseTitle + `</span></a></div>
+                <div id="` + releaseId + `-` + ENVIRONMENT_QA1 + `-div" class="card-text margin-bottom"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_QA1 + `" href="#" target="_blank"></a> <div class="align-top"><i id="` + releaseId + `-` + ENVIRONMENT_QA1 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_QA1 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_QA1 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
+                <div id="` + releaseId + `-` + ENVIRONMENT_QA2 + `-div" class="card-text"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_QA2 + `" href="#" target="_blank"></a> <div class="align-top"><i id="` + releaseId + `-` + ENVIRONMENT_QA2 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_QA2 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_QA2 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
             </div>
-            <div class="col">
-                <div id="` + releaseId + `-stg-card" class="card">
-                    <div class="card-body2">
-                        <div><a href="#" target="_blank" class="card-title" id="` + releaseId + `-stg-release-link"><span class="badge ` + badgeTitleColor + ` badge-card-title">` + releaseTitle + `</span></a></div>
-                        <div id="` + releaseId + `-` + ENVIRONMENT_STG1 + `-div" class="card-text margin-bottom"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_STG1 + `" href="#" target="_blank"></a> <div class="align-top"><i id="` + releaseId + `-` + ENVIRONMENT_STG1 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_STG1 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_STG1 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
-                        <div id="` + releaseId + `-` + ENVIRONMENT_STG2 + `-div" class="card-text"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_STG2 + `" href="#" target="_blank"></a> <div class="align-top"><i id="` + releaseId + `-` + ENVIRONMENT_STG2 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_STG2 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_STG2 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
-                    </div>
-                </div>
+        </div>
+    </div>
+    <div class="col">
+        <div id="` + releaseId + `-stg-card" class="card">
+            <div class="card-body2">
+                <div><a href="#" target="_blank" class="card-title" id="` + releaseId + `-stg-release-link"><span class="badge ` + badgeTitleColor + ` badge-card-title">` + releaseTitle + `</span></a></div>
+                <div id="` + releaseId + `-` + ENVIRONMENT_STG1 + `-div" class="card-text margin-bottom"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_STG1 + `" href="#" target="_blank"></a> <div class="align-top"><i id="` + releaseId + `-` + ENVIRONMENT_STG1 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_STG1 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_STG1 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
+                <div id="` + releaseId + `-` + ENVIRONMENT_STG2 + `-div" class="card-text"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_STG2 + `" href="#" target="_blank"></a> <div class="align-top"><i id="` + releaseId + `-` + ENVIRONMENT_STG2 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_STG2 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_STG2 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
             </div>
-            <div class="col">
-                <div id="` + releaseId + `-prd-card" class="card">
-                    <div class="card-body2">
-                        <div><a href="#" target="_blank" class="card-title" id="` + releaseId + `-prd-release-link"><span class="badge ` + badgeTitleColor + ` badge-card-title">` + releaseTitle + `</span></a></div>
-                        <div id="` + releaseId + `-` + ENVIRONMENT_PRD1 + `-div" class="card-text margin-bottom"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_PRD1 + `" href="#" target="_blank"></a> <div class="align-top"><i id="` + releaseId + `-` + ENVIRONMENT_PRD1 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_PRD1 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_PRD1 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
-                        <div id="` + releaseId + `-` + ENVIRONMENT_PRD2 + `-div" class="card-text"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_PRD2 + `" href="#" target="_blank"></a> <div class="align-top"><i id="` + releaseId + `-` + ENVIRONMENT_PRD2 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_PRD2 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_PRD2 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
-                    </div>
-                </div>
+        </div>
+    </div>
+    <div class="col">
+        <div id="` + releaseId + `-prd-card" class="card">
+            <div class="card-body2">
+                <div><a href="#" target="_blank" class="card-title" id="` + releaseId + `-prd-release-link"><span class="badge ` + badgeTitleColor + ` badge-card-title">` + releaseTitle + `</span></a></div>
+                <div id="` + releaseId + `-` + ENVIRONMENT_PRD1 + `-div" class="card-text margin-bottom"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_PRD1 + `" href="#" target="_blank"></a> <div class="align-top"><i id="` + releaseId + `-` + ENVIRONMENT_PRD1 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_PRD1 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_PRD1 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
+                <div id="` + releaseId + `-` + ENVIRONMENT_PRD2 + `-div" class="card-text"><a class="dashboard-release" id="` + releaseId + `-` + ENVIRONMENT_PRD2 + `" href="#" target="_blank"></a> <div class="align-top"><i id="` + releaseId + `-` + ENVIRONMENT_PRD2 + `-status-icon" class="fas"></i><span id="` + releaseId + `-` + ENVIRONMENT_PRD2 + `-status-text"></span></div><a id="` + releaseId + `-` + ENVIRONMENT_PRD2 + `-link" class="far align-top fa-clipboard dashboard-card-icon"></a></div>
             </div>
-        </div>`);
+        </div>
+    </div>
+</div>`);
     $('#' + releaseId + '-dev-card').hide();
     $('#' + releaseId + '-qa-card').hide();
     $('#' + releaseId + '-stg-card').hide();
@@ -453,9 +443,48 @@ function addNewReleaseTableRow(definitionId, releaseTitle, releaseId, badgeTitle
     $('#' + releaseId + '-' + ENVIRONMENT_STG1 + '-div').hide();
     $('#' + releaseId + '-' + ENVIRONMENT_STG2 + '-div').hide();
     $('#' + releaseId + '-' + ENVIRONMENT_PRD1 + '-div').hide();
-    $('#' + releaseId + '-' + ENVIRONMENT_PRD2 + '-div').hide();  
+    $('#' + releaseId + '-' + ENVIRONMENT_PRD2 + '-div').hide();
+}
 
+function createEnvironmentItem(definitionId, definitionName, releaseNameId, environment, buildId, releaseText, releaseId, status){
+    let releasePipeline = "#";
+    let order = environment.includes("1") === true ? 1 : 2;
     
+    if (releaseId && releaseId > 0) {
+        releasePipeline = uri + "_releaseProgress?_a=release-pipeline-progress&releaseId=" + releaseId;
+    }
+
+    return {
+        divElementId: releaseNameId + "-" + environment + "-div", 
+        envElementId: releaseNameId + "-" + environment, 
+        lnkEnvElementId: releaseNameId + "-" + environment + "-link", 
+        definitionId: definitionId, 
+        definitionName: definitionName, 
+        releaseNameId: releaseNameId, 
+        environment: environment, 
+        buildId: buildId, 
+        releaseText: releaseText, 
+        releaseId: releaseId, 
+        status: status,
+        uri: uri,
+        releasePipeline: releasePipeline,
+        order: order
+    };
+};
+
+function addEnvironmentItemToRelease(release, item, environment) {
+    if (environment === ENVIRONMENT_DEV1 || environment === ENVIRONMENT_DEV2) {
+        release.development.push(item);
+    }
+    if (environment === ENVIRONMENT_QA1 || environment === ENVIRONMENT_QA2) {
+        release.quality.push(item);
+    }
+    if (environment === ENVIRONMENT_STG1 || environment === ENVIRONMENT_STG2) {
+        release.staging.push(item);
+    }
+    if (environment === ENVIRONMENT_PRD1 || environment === ENVIRONMENT_PRD2) {
+        release.production.push(item);
+    }  
 }
 
 /**
@@ -468,36 +497,26 @@ function addNewReleaseTableRow(definitionId, releaseTitle, releaseId, badgeTitle
  * @param {any} releaseId The releaseId value of show the release pipeline.
  * @param {any} status The release status.
  */
-function setReleaseProperties(releaseNameId, environment, buildId, releaseText, definitionId, releaseId, status) {
-    let controlName = releaseNameId + "-" + environment;
+function setReleaseProperties(definitionId, definitionName, releaseNameId, environment, buildId, releaseText, releaseId, status) {
     if (releaseText) {
-        $("#" + controlName).text(releaseText);
-        $("#" + controlName + "-div").fadeIn();
-        $('#' + releaseNameId + '-row').slideDown();
-        let slicedControlName = controlName.slice(0, -1);
-        $('#' + slicedControlName + '-card').slideDown();
-        setStatusProperties("#" + controlName + "-status", status);
-        // gets the uri dynamically.
-        let uri = VSS.getWebContext().account.uri + "/" + VSS.getWebContext().account.name + "/";   // https://mediahub.visualstudio.com/MediaHub
-        // sets the release name link. 
-        if (releaseId && releaseId > 0) {
-            $("#" + controlName).attr("href", uri + "_releaseProgress?_a=release-pipeline-progress&releaseId=" + releaseId); //release-pipeline
-        } else {
-            $("#" + controlName).attr("href", "#");
+        let index = _.findIndex(app.releaseList, function(it) { return it.definitionId == definitionId; });
+        if (index >= 0) {
+            let uri = VSS.getWebContext().account.uri + "/" + VSS.getWebContext().account.name + "/";   // https://mediahub.visualstudio.com/MediaHub
+            let release = app.releaseList[index];    
+            if (definitionId && definitionId > 0) {
+                release.definitionLink = uri + "_release?view=all&definitionId=" + definitionId;
+            } 
+
         }
-        // sets the dashboard title link.
-        if (definitionId && definitionId > 0) {
-            $("#" + slicedControlName + "-release-link").attr("href", uri + "_release?view=all&definitionId=" + definitionId);
-        } else {
-            $("#" + slicedControlName + "-release-link").attr("href", "#");
-        }
-        $("#" + controlName + "-link").click(function (e) { showWorkItemsListDialog(slicedControlName, buildId, releaseText); return false; });
-    } else {
-        $("#" + controlName).text("");
-        $("#" + controlName + "-div").fadeOut();
-        $("#" + controlName).attr("href", "#");
-        $("." + releaseNameId + "-release-link").attr("href", "#");
-        $("#" + controlName + "-link").click();
+
+
+        
+    
+
+
+        
+        let item = createEnvironmentItem(definitionId, definitionName, releaseNameId, environment, buildId, releaseText, releaseId, status);
+        addEnvironmentItemToRelease(release, item, environment);
     }
 }
 

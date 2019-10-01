@@ -1,4 +1,15 @@
-﻿.card-body2 {
+﻿html{
+    height: 100%;
+}
+
+body{ 
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    height:100%;
+}
+
+.card-body2 {
     flex: 1 1 auto;
     padding: 0.8rem;
 }
@@ -33,12 +44,11 @@ a.dashboard-card-icon {
     height: 120%;
 }
 #dashboard {
-    /* height: 100%; */
-    /* overflow-y: auto;
-    overflow-x: hidden; */
-    height: 480px; 
-    overflow: scroll;
+    overflow-y: auto;
+    padding-right: 20px;
 }
+
+
 #work-items-container {
     max-height: 44em;
     height: 44em;
@@ -58,9 +68,6 @@ a.dashboard-card-icon {
 
 .margin-bottom {
     margin-bottom: 0.5rem;
-}
-html, body {
-    height: 85%;
 }
 body {
     margin: 0;
