@@ -1,122 +1,132 @@
 {
- 	"manifestVersion": 1,
- 	"id": "dashboard-index-v2",
- 	"publisher": "renatocorreiadematos",
- 	"version": "1.0.5",
+	"manifestVersion": 1,
+	"id": "dashboard-index-v2",
+	"publisher": "renatocorreiadematos",
+	"version": "1.0.9",
 	"name": "Releases MediaHub - Overview v2",
 	"description": "Overview Releases Media Hub Index",
 	"public": false,
-	"categories": [ "Azure Pipelines" ],
+	"baseUri": "https://localhost",
+	"categories": [
+		"Azure Pipelines"
+	],
 	"targets": [
-	  {
-		"id": "Microsoft.VisualStudio.Services"
-	  }
+		{
+			"id": "Microsoft.VisualStudio.Services"
+		}
 	],
 	"icons": {
-	  "default": "static/images/logo.png"
+		"default": "static/images/logo.png"
 	},
 	"scopes": [
 		"vso.work",
 		"vso.work_full",
-        "vso.code_write",
+		"vso.code_write",
 		"vso.build_execute",
 		"vso.test",
 		"vso.build",
-    	"vso.code",
-    	"vso.release_execute",
-    	"vso.release_manage"
-    ],
- 	"contributions": [
- 		{
- 			"id": "dashboard-index-v2",
- 			"type": "ms.vss-web.hub",
- 			"targets": [
- 				"ms.vss-code-web.code-hub-group"
- 			],
- 			"properties": {
+		"vso.code",
+		"vso.release_execute",
+		"vso.release_manage"
+	],
+	"contributions": [
+		{
+			"id": "dashboard-index-v2",
+			"type": "ms.vss-web.hub",
+			"targets": [
+				"ms.vss-code-web.code-hub-group"
+			],
+			"properties": {
 				"name": "Releases MediaHub - Overview v2",
 				"uri": "index.html"
-		 
- 			}
-		 },
-		 {
+			}
+		},
+		{
 			"id": "work-items-list",
 			"type": "ms.vss-web.control",
 			"description": "The content to be displayed in the dialog",
 			"targets": [],
 			"properties": {
-			  "uri": "work-items-list.html?id={{id}}&name={{releaseName}}&color={{badgeColor}}"
+				"uri": "work-items-list.html?id={{id}}&name={{releaseName}}&color={{badgeColor}}"
 			}
-		  }
- 	],
- 	"files": [
+		}
+	],
+	"files": [
 		{
-		  "path": "index.html",
-		  "addressable": true
+			"path": "index.html",
+			"addressable": true
 		},
 		{
-		  "path": "work-items-list.html",
-		  "addressable": true
+			"path": "work-items-list.html",
+			"addressable": true
 		},
 		{
-		  "path": "lib/VSS.SDK.min.js",
-		  "addressable": true
+			"path": "lib/VSS.SDK.min.js",
+			"addressable": true
 		},
 		{
 			"path": "lib/VUE.js",
 			"addressable": true
 		},
 		{
-		  "path": "static/images/logo.png",
-		  "addressabe": true
+			"path": "lib/lodash.min.js",
+			"addressable": true
 		},
 		{
-		  "path": "static/css/dashboard.css",
-		  "addressable": true
+			"path": "static/images/logo.png",
+			"addressabe": true
 		},
 		{
-		  "path": "static/css/all.min.css",
-		  "addressable": true
+			"path": "static/css/dashboard.css",
+			"addressable": true
 		},
 		{
-		  "path": "static/css/bootstrap.min.css",
-		  "addressable": true
+			"path": "static/css/all.min.css",
+			"addressable": true
 		},
 		{
-		  "path": "lib/bootstrap.min.js",
-		  "addressable": true
+			"path": "static/css/bootstrap.min.css",
+			"addressable": true
 		},
 		{
-		  "path": "lib/dashboard.js",
-		  "addressable": true
+			"path": "lib/bootstrap.min.js",
+			"addressable": true
+		},
+		{
+			"path": "lib/dashboard.js",
+			"addressable": true
 		},
 		{
 			"path": "lib/app.js",
 			"addressable": true
 		},
 		{
-		  "path": "static/webfonts/fa-regular-400.woff",
-		  "addressable": true
+			"path": "static/webfonts/fa-regular-400.woff",
+			"addressable": true
 		},
 		{
-		  "path": "static/webfonts/fa-regular-400.woff2",
-		  "addressable": true
+			"path": "static/webfonts/fa-regular-400.woff2",
+			"addressable": true
 		},
 		{
-		  "path": "static/webfonts/fa-regular-400.eot",
-		  "addressable": true
+			"path": "static/webfonts/fa-regular-400.eot",
+			"addressable": true
 		},
 		{
-		  "path": "static/webfonts/fa-solid-900.woff",
-		  "addressable": true
+			"path": "static/webfonts/fa-solid-900.woff",
+			"addressable": true
 		},
 		{
-		  "path": "static/webfonts/fa-solid-900.woff2",
-		  "addressable": true
+			"path": "static/webfonts/fa-solid-900.woff2",
+			"addressable": true
 		},
 		{
-		  "path": "static/webfonts/fa-solid-900.eot",
-		  "addressable": true
+			"path": "static/webfonts/fa-solid-900.eot",
+			"addressable": true
+		},
+		{
+			"path": "static/images/loading.gif",
+			"addressable": true
 		}
-	  ]
- }
+	]
+}

@@ -23,12 +23,14 @@
 				<ul class="navbar-nav mr-auto">
 				</ul>
 				<form class="form-inline my-2 my-lg-0">
-					<button v-if="!filtered" class="btn btn-sm btn-outline-success my-2 my-sm-0" type="button" @click="applyFilter($event)" style="margin-right: 0px">
-						<img src="content/img/filter-icon-16.png" /> Filter
+					<button v-if="!filtered" class="btn btn-sm btn-outline-success my-2 my-sm-0" type="button"
+						@click="showFilter($event)" style="margin-right: 0px">
+						<img src="static/images/filter-icon-16.png" /> Filter
 					</button>
-		
-					<button v-if="filtered" class="btn btn-sm btn-outline-success my-2 my-sm-0 active" type="button" @click="applyFilter($event)" style="margin-right: 0px">
-						<img src="content/img/filter-icon-16.png" /> Filter
+
+					<button v-if="filtered" class="btn btn-sm btn-outline-success my-2 my-sm-0 active" type="button"
+						@click="showFilter($event)" style="margin-right: 0px">
+						<img src="static/images/filter-icon-16.png" /> Filter
 					</button>
 				</form>
 			</div>
@@ -38,31 +40,17 @@
 
 			<div class="row">
 				<div class="card-body bg-light" v-if="filtered">
-					<div class="row px-lg-4">
-						<div class="col">
-							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="chbSFAccount" checked>
-								<label class="custom-control-label text-dark" for="chbSFAccount">SF Account</label>
-							</div>
+					<div class="row">
+						<div class="col text-center" v-if="!isReleaseListLoaded">
+							<img class="img-fluid" src="static/images/loading.gif" /> 
 						</div>
-						<div class="col">
+
+						<div class="col-3"  v-if="isReleaseListLoaded" v-for="release in releaseList">
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="chbSFAuditing" checked>
-								<label class="custom-control-label text-dark" for="chbSFAuditing">SF Auditing</label>
-							</div>
-						</div>
-						<div class="col">
-							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="chbCFConfiguration" checked>
-								<label class="custom-control-label text-dark" for="chbCFConfiguration">
-									Configuration</label>
-							</div>
-						</div>
-						<div clsas="col">
-							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="chbSFClusterUpgrade" checked>
-								<label class="custom-control-label text-dark" for="chbSFClusterUpgrade">SF Cluster
-									Upgrade</label>
+								<input type="checkbox" class="custom-control-input" :id="release.definitionId" @click="checkRelease($event)"
+									checked>
+								<label class="custom-control-label text-dark"
+									:for="release.definitionId">{{release.definitionName}}</label>
 							</div>
 						</div>
 					</div>
@@ -70,6 +58,30 @@
 			</div>
 
 			<div id="dashboard">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Deveopment</th>
+							<th scope="col">Quality</th>
+							<th scope="col">Staging</th>
+							<th scope="col">Production</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr v-for="release in filteredItems">
+							<th scope="row">{{release.definitionName}}</th>
+							<td>Mark</td>
+							<td>Otto</td>
+							<td>@mdo</td>
+							<td>@mdo</td>
+						</tr>
+					</tbody>
+
+				</table>
+
+
 				<!--HEADER-->
 				<div id="dashboard-title" class="row">
 					<div class="col">
@@ -110,8 +122,10 @@
 	<script src="lib/VSS.SDK.min.js" type="text/javascript"></script>
 	<!-- Vue -->
 	<script src="lib/Vue.js" type="text/javascript"></script>
+	<!-- Loadash SDK -->
+	<script src="lib/lodash.min.js" type="text/javascript"></script>
 	<!-- Custom Script -->
-	<script src="lib/dashboard.js"></script> 
+	<script src="lib/dashboard.js"></script>
 	<!-- App -->
 	<script src="lib/app.js" type="text/javascript"></script>
 </body>

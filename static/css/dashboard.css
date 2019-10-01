@@ -33,9 +33,11 @@ a.dashboard-card-icon {
     height: 120%;
 }
 #dashboard {
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+    /* height: 100%; */
+    /* overflow-y: auto;
+    overflow-x: hidden; */
+    height: 480px; 
+    overflow: scroll;
 }
 #work-items-container {
     max-height: 44em;
