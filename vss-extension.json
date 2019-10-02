@@ -2,7 +2,7 @@
 	"manifestVersion": 1,
 	"id": "dashboard-index-v2",
 	"publisher": "renatocorreiadematos",
-	"version": "1.0.11",
+	"version": "1.0.13",
 	"name": "Releases MediaHub - Overview v2",
 	"description": "Overview Releases Media Hub Index",
 	"public": false,
@@ -64,7 +64,7 @@
 			"addressable": true
 		},
 		{
-			"path": "lib/VUE.js",
+			"path": "lib/Vue.js",
 			"addressable": true
 		},
 		{
@@ -92,7 +92,7 @@
 			"addressable": true
 		},
 		{
-			"path": "lib/dashboard2.js",
+			"path": "lib/dashboard.js",
 			"addressable": true
 		},
 		{
@@ -126,6 +126,10 @@
 		{
 			"path": "static/images/loading.gif",
 			"addressable": true
-		}
+		},
+		{
+			"path": "static/images/filter-icon-16.png",
+			"addressable": true
+		}		
 	]
 }
