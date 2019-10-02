@@ -40,11 +40,14 @@ a.dashboard-card-icon {
     float: right;
 }
 
-#release-container {
+#app {
     height: 120%;
 }
+
 #dashboard {
+    height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
     padding-right: 20px;
 }
 

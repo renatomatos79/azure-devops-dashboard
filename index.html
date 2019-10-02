@@ -11,8 +11,7 @@
 </head>
 
 <body>
-	<div id="app">
-
+	<div class="container-fluid mt-2" id="app">
 		<nav class="navbar bg-info">
 			<a class="navbar-brand text-white">{{ title }}</a>
 			<form class="form-inline">
@@ -27,70 +26,61 @@
 				</button>
 			</form>
 		</nav>
-
-
-		<div class="container-fluid">
-			<div class="row">
-				<div class="card-body bg-light" v-if="filtered">
-					<div class="row">
-						<div class="col text-center" v-if="!isReleaseListLoaded">
-							<img class="img-fluid" width="120" src="static/images/loading.gif" />
-						</div>
-
-						<div class="col-3" v-if="isReleaseListLoaded" v-for="release in releaseList">
-							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" :id="release.definitionId"
-									@click="onCheckItem($event)" :checked="release.isChecked">
-								<label class="custom-control-label text-dark"
-									:for="release.definitionId">{{release.definitionName}}</label>
-							</div>
-						</div>
+		<div class="row">
+			<div class="card-body bg-light" v-if="filtered">
+				<div class="row">
+					<div class="col text-center" v-if="!isReleaseListLoaded">
+						<img class="img-fluid" width="120" src="static/images/loading.gif" />
 					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col">
-					<div id="dashboard">
-						<!--HEADER-->
-						<div id="dashboard-title" class="row">
-							<div class="col">
-								<div class="card dashboard-column-title">
-									<div class="card-body2">
-										<p class="card-text dashboard-title">Development</p>
-									</div>
-								</div>
-							</div>
-							<div class="col">
-								<div class="card dashboard-column-title">
-									<div class="card-body2">
-										<p class="card-text dashboard-title">Quality</p>
-									</div>
-								</div>
-							</div>
-							<div class="col">
-								<div class="card dashboard-column-title">
-									<div class="card-body2">
-										<p class="card-text dashboard-title">Staging</p>
-									</div>
-								</div>
-							</div>
-							<div class="col">
-								<div class="card dashboard-column-title">
-									<div class="card-body2">
-										<p class="card-text dashboard-title">Production</p>
-									</div>
-								</div>
-							</div>
+					<div class="col-3" v-if="isReleaseListLoaded" v-for="release in releaseList">
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" :id="release.definitionId"
+								@click="onCheckItem($event)" :checked="release.isChecked">
+							<label class="custom-control-label text-dark"
+								:for="release.definitionId">{{release.definitionName}}</label>
 						</div>
-						<!--TABLE ROWS CONTENT-->
-						<div id="dashboard-rows-container"></div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div id="dashboard">
+			<!--HEADER-->
+			<div id="dashboard-title" class="row">
+				<div class="col">
+					<div class="card dashboard-column-title">
+						<div class="card-body2">
+							<p class="card-text dashboard-title">Development</p>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card dashboard-column-title">
+						<div class="card-body2">
+							<p class="card-text dashboard-title">Quality</p>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card dashboard-column-title">
+						<div class="card-body2">
+							<p class="card-text dashboard-title">Staging</p>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card dashboard-column-title">
+						<div class="card-body2">
+							<p class="card-text dashboard-title">Production</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--TABLE ROWS CONTENT-->
+			<div id="dashboard-rows-container"></div>
+		</div>
 	</div>
-	</div>
+	<!-- Bootstrap -->
+	<script src="lib/bootstrap.min.js" type="text/javascript"></script>
 	<!-- VSS SDK -->
 	<script src="lib/VSS.SDK.min.js" type="text/javascript"></script>
 	<!-- Vue -->
