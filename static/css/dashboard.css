@@ -51,6 +51,10 @@ a.dashboard-card-icon {
     padding-right: 20px;
 }
 
+#dashboard-rows-container {
+    /* height: 1540px!important; */
+    height: calc(100% + 45rem);
+}
 
 #work-items-container {
     max-height: 44em;
@@ -72,6 +76,7 @@ a.dashboard-card-icon {
 .margin-bottom {
     margin-bottom: 0.5rem;
 }
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI VSS (Regular)", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";

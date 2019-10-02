@@ -31,3 +31,6 @@ echo "" >> vss-extension.json
 
 build extension:
 tfx extension create
+
+para debug adicione a linha abaixo em vss-extension.json
+"baseUri": "https://localhost"
