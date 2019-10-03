@@ -47,7 +47,6 @@ a.dashboard-card-icon {
 #dashboard {
     height: 100%;
     overflow-y: auto;
-    overflow-x: hidden;
     padding-right: 20px;
 }
 
@@ -140,3 +139,11 @@ a.dashboard-release {
     border-bottom: 0.05rem solid #ccc;
     margin: 0 0.5rem;
 }
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.25s ease-out;
+  }
+  
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
