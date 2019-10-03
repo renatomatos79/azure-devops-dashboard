@@ -12,6 +12,7 @@
 
 <body>
 	<div class="container-fluid mt-2" id="app">
+		<!-- navigation bar -->
 		<nav class="navbar bg-info">
 			<a class="navbar-brand text-white">{{ title }}</a>
 			<form class="form-inline">
@@ -26,6 +27,9 @@
 				</button>
 			</form>
 		</nav>
+		<!-- end navigation bar -->
+
+		<!-- filter -->
 		<div class="row">
 			<transition name="fade">
 				<div class="card-body bg-light" v-if="filtered">
@@ -45,129 +49,133 @@
 				</div>
 			</transition>
 		</div>
+		<!-- end filter -->
+		
 		<div id="dashboard">
-			<table class="table table-striped">
-				<thead>
-				  <tr>
-					<th scope="col">Development</th>
-					<th scope="col">Quality</th>
-					<th scope="col">Staging</th>
-					<th scope="col">Production</th>
-				  </tr>
-				</thead>
-				<tbody id="table-cards">
-					<tr :id="card.rowId" :name="card.rowName"  v-for="card in cards">
-						<th scope="row">
-							<div :id="card.devCardId" class="card">
-								<div class="card-body2">
-									<div>
-										<a href="#" target="_blank" class="card-title" :id="card.devReleaseLinkId">
-											<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
-										</a>
-									</div>
-									<div :id="card.devReleaseDivId1" class="card-text margin-bottom">
-										<a class="dashboard-release" :id="card.devDashboardReleaseId1" href="#" target="_blank"></a> 
-										<div class="align-top">
-											<i :id="card.devStatusIconId1" class="fas"></i>
-											<span :id="card.devStatusTextId1"></span>
+			<div class="table-responsive-sm">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+						<th scope="col">Development</th>
+						<th scope="col">Quality</th>
+						<th scope="col">Staging</th>
+						<th scope="col">Production</th>
+						</tr>
+					</thead>
+					<tbody id="table-cards">
+						<tr :id="card.rowId" :name="card.rowName"  v-for="card in cards">
+							<th scope="row">
+								<div :id="card.devCardId" class="card">
+									<div class="card-body2">
+										<div>
+											<a href="#" target="_blank" class="card-title" :id="card.devReleaseLinkId">
+												<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
+											</a>
 										</div>
-										<a :id="card.devModalReleaseLinkId1" class="far align-top fa-clipboard dashboard-card-icon"></a>
-									</div>
-									<div :id="card.devReleaseDivId2" class="card-text">
-										<a class="dashboard-release" :id="card.devDashboardReleaseId2" href="#" target="_blank"></a> 
-										<div class="align-top"> 
-											<i :id="card.devStatusIconId2" class="fas"></i>
-											<span :id="card.devStatusTextId2"></span>
+										<div :id="card.devReleaseDivId1" class="card-text margin-bottom">
+											<a class="dashboard-release" :id="card.devDashboardReleaseId1" href="#" target="_blank"></a> 
+											<div class="align-top">
+												<i :id="card.devStatusIconId1" class="fas"></i>
+												<span :id="card.devStatusTextId1"></span>
+											</div>
+											<a :id="card.devModalReleaseLinkId1" class="far align-top fa-clipboard dashboard-card-icon"></a>
 										</div>
-										<a :id="card.devModalReleaseLinkId2" class="far align-top fa-clipboard dashboard-card-icon"></a>
+										<div :id="card.devReleaseDivId2" class="card-text">
+											<a class="dashboard-release" :id="card.devDashboardReleaseId2" href="#" target="_blank"></a> 
+											<div class="align-top"> 
+												<i :id="card.devStatusIconId2" class="fas"></i>
+												<span :id="card.devStatusTextId2"></span>
+											</div>
+											<a :id="card.devModalReleaseLinkId2" class="far align-top fa-clipboard dashboard-card-icon"></a>
+										</div>
 									</div>
 								</div>
-							</div>
-						</th>
-						<td>
-							<div :id="card.qaCardId" class="card">
-								<div class="card-body2">
-									<div>
-										<a href="#" target="_blank" class="card-title" :id="card.qaReleaseLinkId">
-											<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
-										</a>
-									</div>
-									<div :id="card.qaReleaseDivId1" class="card-text margin-bottom">
-										<a class="dashboard-release" :id="card.qaDashboardReleaseId1" href="#" target="_blank"></a> 
-										<div class="align-top">
-											<i :id="card.qaStatusIconId1" class="fas"></i>
-											<span :id="card.qaStatusTextId1"></span>
+							</th>
+							<td>
+								<div :id="card.qaCardId" class="card">
+									<div class="card-body2">
+										<div>
+											<a href="#" target="_blank" class="card-title" :id="card.qaReleaseLinkId">
+												<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
+											</a>
 										</div>
-										<a :id="card.qaModalReleaseLinkId1" class="far align-top fa-clipboard dashboard-card-icon"></a>
-									</div>
-									<div :id="card.qaReleaseDivId2" class="card-text">
-										<a class="dashboard-release" :id="card.qaDashboardReleaseId2" href="#" target="_blank"></a> 
-										<div class="align-top">
-											<i :id="card.qaStatusIconId2" class="fas"></i>
-											<span :id="card.qaStatusTextId2"></span>
+										<div :id="card.qaReleaseDivId1" class="card-text margin-bottom">
+											<a class="dashboard-release" :id="card.qaDashboardReleaseId1" href="#" target="_blank"></a> 
+											<div class="align-top">
+												<i :id="card.qaStatusIconId1" class="fas"></i>
+												<span :id="card.qaStatusTextId1"></span>
+											</div>
+											<a :id="card.qaModalReleaseLinkId1" class="far align-top fa-clipboard dashboard-card-icon"></a>
 										</div>
-										<a :id="card.qaModalReleaseLinkId2" class="far align-top fa-clipboard dashboard-card-icon"></a>
+										<div :id="card.qaReleaseDivId2" class="card-text">
+											<a class="dashboard-release" :id="card.qaDashboardReleaseId2" href="#" target="_blank"></a> 
+											<div class="align-top">
+												<i :id="card.qaStatusIconId2" class="fas"></i>
+												<span :id="card.qaStatusTextId2"></span>
+											</div>
+											<a :id="card.qaModalReleaseLinkId2" class="far align-top fa-clipboard dashboard-card-icon"></a>
+										</div>
 									</div>
 								</div>
-							</div>
-						</td>
-						<td>
-							<div :id="card.stgCardId" class="card">
-								<div class="card-body2">
-									<div>
-										<a href="#" target="_blank" class="card-title" :id="card.stgReleaseLinkId">
-											<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
-										</a>
-									</div>
-									<div :id="card.stgReleaseDivId1" class="card-text margin-bottom">
-										<a class="dashboard-release" :id="card.stgDashboardReleaseId1" href="#" target="_blank"></a> 
-										<div class="align-top">
-											<i :id="card.stgStatusIconId1" class="fas"></i>
-											<span :id="card.stgStatusTextId1"></span>
+							</td>
+							<td>
+								<div :id="card.stgCardId" class="card">
+									<div class="card-body2">
+										<div>
+											<a href="#" target="_blank" class="card-title" :id="card.stgReleaseLinkId">
+												<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
+											</a>
 										</div>
-										<a :id="card.stgModalReleaseLinkId1" class="far align-top fa-clipboard dashboard-card-icon"></a>
-									</div>
-									<div :id="card.stgReleaseDivId2" class="card-text">
-										<a class="dashboard-release" :id="card.stgDashboardReleaseId2" href="#" target="_blank"></a> 
-										<div class="align-top">
-											<i :id="card.stgStatusIconId2" class="fas"></i>
-											<span :id="card.stgStatusTextId2"></span>
+										<div :id="card.stgReleaseDivId1" class="card-text margin-bottom">
+											<a class="dashboard-release" :id="card.stgDashboardReleaseId1" href="#" target="_blank"></a> 
+											<div class="align-top">
+												<i :id="card.stgStatusIconId1" class="fas"></i>
+												<span :id="card.stgStatusTextId1"></span>
+											</div>
+											<a :id="card.stgModalReleaseLinkId1" class="far align-top fa-clipboard dashboard-card-icon"></a>
 										</div>
-										<a :id="card.stgModalReleaseLinkId2" class="far align-top fa-clipboard dashboard-card-icon"></a>
+										<div :id="card.stgReleaseDivId2" class="card-text">
+											<a class="dashboard-release" :id="card.stgDashboardReleaseId2" href="#" target="_blank"></a> 
+											<div class="align-top">
+												<i :id="card.stgStatusIconId2" class="fas"></i>
+												<span :id="card.stgStatusTextId2"></span>
+											</div>
+											<a :id="card.stgModalReleaseLinkId2" class="far align-top fa-clipboard dashboard-card-icon"></a>
+										</div>
 									</div>
 								</div>
-							</div>
-						</td>
-						<td>
-							<div :id="card.prdCardId" class="card">
-								<div class="card-body2">
-									<div>
-										<a href="#" target="_blank" class="card-title" :id="card.prdReleaseLinkId">
-											<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
-										</a>
-									</div>
-									<div :id="card.prdReleaseDivId1" class="card-text margin-bottom">
-										<a class="dashboard-release" :id="card.prdDashboardReleaseId1" href="#" target="_blank"></a> 
-										<div class="align-top">
-											<i :id="card.prdStatusIconId1" class="fas"></i>
-											<span :id="card.prdStatusTextId1"></span>
+							</td>
+							<td>
+								<div :id="card.prdCardId" class="card">
+									<div class="card-body2">
+										<div>
+											<a href="#" target="_blank" class="card-title" :id="card.prdReleaseLinkId">
+												<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
+											</a>
 										</div>
-										<a :id="card.prdModalReleaseLinkId1" class="far align-top fa-clipboard dashboard-card-icon"></a>
-									</div>
-									<div :id="card.prdReleaseDivId2" class="card-text">
-										<a class="dashboard-release" :id="card.prdDashboardReleaseId2" href="#" target="_blank"></a> 
-										<div class="align-top">
-											<i :id="card.prdStatusIconId2" class="fas"></i>
-											<span :id="card.prdStatusTextId2"></span>
+										<div :id="card.prdReleaseDivId1" class="card-text margin-bottom">
+											<a class="dashboard-release" :id="card.prdDashboardReleaseId1" href="#" target="_blank"></a> 
+											<div class="align-top">
+												<i :id="card.prdStatusIconId1" class="fas"></i>
+												<span :id="card.prdStatusTextId1"></span>
+											</div>
+											<a :id="card.prdModalReleaseLinkId1" class="far align-top fa-clipboard dashboard-card-icon"></a>
 										</div>
-										<a :id="card.prdModalReleaseLinkId2" class="far align-top fa-clipboard dashboard-card-icon"></a>
+										<div :id="card.prdReleaseDivId2" class="card-text">
+											<a class="dashboard-release" :id="card.prdDashboardReleaseId2" href="#" target="_blank"></a> 
+											<div class="align-top">
+												<i :id="card.prdStatusIconId2" class="fas"></i>
+												<span :id="card.prdStatusTextId2"></span>
+											</div>
+											<a :id="card.prdModalReleaseLinkId2" class="far align-top fa-clipboard dashboard-card-icon"></a>
+										</div>
 									</div>
 								</div>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			  </table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 	<!-- Bootstrap -->

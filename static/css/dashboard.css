@@ -50,7 +50,7 @@ a.dashboard-card-icon {
     padding-right: 20px;
 }
 
-#dashboard-rows-container {
+#table-cards, #dashboard-rows-container {
     /* height: 1540px!important; */
     height: calc(100% + 45rem);
 }
