@@ -14,10 +14,6 @@ body{
     padding: 0.8rem;
 }
 
-.dashboard-row-padding-bottom {
-    padding-bottom: 1em;
-}
-
 .dashboard-column-title {
     width: 21rem;
     height: 2rem;
@@ -46,13 +42,8 @@ a.dashboard-card-icon {
 
 #dashboard {
     height: 100%;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
     padding-right: 20px;
-}
-
-#table-cards, #dashboard-rows-container {
-    /* height: 1540px!important; */
-    height: calc(100% + 45rem);
 }
 
 #work-items-container {
@@ -140,6 +131,10 @@ a.dashboard-release {
     margin: 0 0.5rem;
 }
 
+.tr-detail {
+    background-color: white!important;
+}
+
 .fade-enter-active, .fade-leave-active {
     transition: opacity 0.25s ease-out;
   }
@@ -147,3 +142,13 @@ a.dashboard-release {
   .fade-enter, .fade-leave-to {
     opacity: 0;
   }
+
+
+  .my-custom-scrollbar {
+    position: relative;
+    height: 200px;
+    overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+    display: block;
+    }  
