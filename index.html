@@ -64,7 +64,7 @@
 				<tbody>
 					<tr :id="card.rowId" :name="card.rowName"  v-for="card in cards">
 						<th scope="row">
-							<div :id="card.devCardId" class="card">
+							<div :id="card.devCardId" class="card" v-if="card.devCardVisible">
 								<div class="card-body2">
 									<div>
 										<a href="#" target="_blank" class="card-title" :id="card.devReleaseLinkId">
@@ -73,7 +73,7 @@
 									</div>
 									<table class="table table-hover table-borderless table-sm">
 										<tbody>
-											<tr :id="card.devReleaseDivId1" class="tr-detail">
+											<tr :id="card.devReleaseDivId1" class="tr-detail" v-if="card.devReleaseDivVisible1">
 												<td>
 													<a class="dashboard-release" :id="card.devDashboardReleaseId1" href="#" target="_blank"></a> 
 												</td>
@@ -87,7 +87,7 @@
 													<a :id="card.devModalReleaseLinkId1" class="far align-top fa-clipboard dashboard-card-icon"></a>
 												</td>
 											</tr>
-											<tr :id="card.devReleaseDivId2" class="tr-detail">
+											<tr :id="card.devReleaseDivId2" class="tr-detail" v-if="card.devReleaseDivVisible2">
 												<td>
 													<a class="dashboard-release" :id="card.devDashboardReleaseId2" href="#" target="_blank"></a> 
 												</td>
@@ -107,7 +107,7 @@
 							</div>
 						</th>
 						<td>
-							<div :id="card.qaCardId" class="card">
+							<div :id="card.qaCardId" class="card" v-if="card.qaCardVisible">
 								<div class="card-body2">
 									<div>
 										<a href="#" target="_blank" class="card-title" :id="card.qaReleaseLinkId">
@@ -116,7 +116,7 @@
 									</div>
 									<table class="table table-hover table-borderless table-sm">
 										<tbody>
-											<tr :id="card.qaReleaseDivId1" class="tr-detail">
+											<tr :id="card.qaReleaseDivId1" class="tr-detail" v-if="card.qaReleaseDivVisible1">
 												<td>
 													<a class="dashboard-release" :id="card.qaDashboardReleaseId1" href="#" target="_blank"></a> 
 												</td>
@@ -130,7 +130,7 @@
 													<a :id="card.qaModalReleaseLinkId1" class="far align-top fa-clipboard dashboard-card-icon"></a>
 												</td>
 											</tr>
-											<tr :id="card.qaReleaseDivId2" class="tr-detail">
+											<tr :id="card.qaReleaseDivId2" class="tr-detail" v-if="card.qaReleaseDivVisible2">
 												<td>
 													<a class="dashboard-release" :id="card.qaDashboardReleaseId2" href="#" target="_blank"></a> 
 												</td>
@@ -150,7 +150,7 @@
 							</div>
 						</td>
 						<td>
-							<div :id="card.stgCardId" class="card">
+							<div :id="card.stgCardId" class="card" v-if="card.stgCardVisible">
 								<div class="card-body2">
 									<div>
 										<a href="#" target="_blank" class="card-title" :id="card.stgReleaseLinkId">
@@ -159,7 +159,7 @@
 									</div>
 									<table class="table table-hover table-borderless table-sm">
 										<tbody>
-											<tr :id="card.stgReleaseDivId1" class="tr-detail">
+											<tr :id="card.stgReleaseDivId1" class="tr-detail" v-if="card.stgReleaseDivVisible1">
 												<td>
 													<a class="dashboard-release" :id="card.stgDashboardReleaseId1" href="#" target="_blank"></a> 
 												</td>
@@ -173,7 +173,7 @@
 													<a :id="card.stgModalReleaseLinkId1" class="far align-top fa-clipboard dashboard-card-icon"></a>
 												</td>
 											</tr>
-											<tr :id="card.stgReleaseDivId2" class="tr-detail">
+											<tr :id="card.stgReleaseDivId2" class="tr-detail" v-if="card.stgReleaseDivVisible2">
 												<td>
 													<a class="dashboard-release" :id="card.stgDashboardReleaseId2" href="#" target="_blank"></a> 
 												</td>
@@ -193,7 +193,7 @@
 							</div>
 						</td>
 						<td>
-							<div :id="card.prdCardId" class="card">
+							<div :id="card.prdCardId" class="card" v-if="card.prdCardVisible">
 								<div class="card-body2">
 									<div>
 										<a href="#" target="_blank" class="card-title" :id="card.prdReleaseLinkId">
@@ -202,7 +202,7 @@
 									</div>
 									<table class="table table-hover table-borderless table-sm">
 										<tbody>
-											<tr :id="card.prdReleaseDivId1" class="tr-detail">
+											<tr :id="card.prdReleaseDivId1" class="tr-detail" v-if="card.prdReleaseDivVisible1">
 												<td>
 													<a class="dashboard-release" :id="card.prdDashboardReleaseId1" href="#" target="_blank"></a> 
 												</td>
@@ -216,7 +216,7 @@
 													<a :id="card.prdModalReleaseLinkId1" class="far align-top fa-clipboard dashboard-card-icon"></a>
 												</td>
 											</tr>
-											<tr :id="card.prdReleaseDivId2" class="tr-detail">
+											<tr :id="card.prdReleaseDivId2" class="tr-detail" v-if="card.prdReleaseDivVisible2">
 												<td>
 													<a class="dashboard-release" :id="card.prdDashboardReleaseId2" href="#" target="_blank"></a> 
 												</td>
