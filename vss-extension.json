@@ -1,8 +1,8 @@
 {
 	"manifestVersion": 1,
 	"id": "dashboard-index-v2",
-	"publisher": "RenatoCorreiadeMatos",
-	"version": "1.0.14",
+	"publisher": "mediahub",
+	"version": "1.0.18",
 	"name": "Releases MediaHub - Overview v2",
 	"description": "Overview Releases Media Hub Index",
 	"public": false,
