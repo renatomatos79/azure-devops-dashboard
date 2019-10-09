@@ -63,6 +63,10 @@ a.dashboard-card-icon {
     font-size:1.5em;
 }
 
+.card-light {
+    background-color:#E9E9E9;
+}
+
 .margin-bottom {
     margin-bottom: 0.5rem;
 }
@@ -131,8 +135,8 @@ a.dashboard-release {
     margin: 0 0.5rem;
 }
 
-.tr-detail {
-    background-color: white!important;
+.card-options {
+    min-height: 125px;
 }
 
 .fade-enter-active, .fade-leave-active {

@@ -97,7 +97,7 @@
 		<!-- end filter -->
 
 		<div id="dashboard" class="table-wrapper-scroll-y my-custom-scrollbar mt-2">
-			<table id="table-cards" class="table table-striped table-sm" cellspacing="0" width="100%">
+			<table id="table-cards" class="table table-sm" cellspacing="0" width="100%">
 				<thead>
 					<tr>
 						<th scope="col">Development</th>
@@ -107,19 +107,19 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr :id="card.rowId" :name="card.rowName" v-for="card in filteredCards">
-						<th scope="row">
-							<div :id="card.devCardId" class="card">
+					<tr :id="card.rowId" :name="card.rowName" v-for="(card, cardIndex) in filteredCards">
+						<td>
+							<div :id="card.devCardId" class="card card-options" :class="{ 'card-light' : cardIndex % 2 === 0}" >
 								<div class="card-body2">
 									<div>
 										<a :href="card.content.dev1.uriReleaseLink" target="_blank" class="card-title"
 											:id="card.devReleaseLinkId">
-											<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
+											<span :class="card.badgeClassName">{{cardIndex}} - {{card.releaseTitle}}</span>
 										</a>
 									</div>
-									<table class="table table-hover table-borderless table-sm">
+									<table class="table table-borderless table-sm">
 										<tbody>
-											<tr :id="card.devReleaseDivId1" class="tr-detail"
+											<tr :id="card.devReleaseDivId1" 
 												v-if="card.content.dev1.hasContent">
 												<td>
 													<a class="dashboard-release" :id="card.devDashboardReleaseId1"
@@ -140,7 +140,7 @@
 														class="far align-top fa-clipboard dashboard-card-icon"></a>
 												</td>
 											</tr>
-											<tr :id="card.devReleaseDivId2" class="tr-detail"
+											<tr :id="card.devReleaseDivId2" 
 												v-if="card.content.dev2.hasContent">
 												<td>
 													<a class="dashboard-release" :id="card.devDashboardReleaseId2"
@@ -165,9 +165,9 @@
 									</table>
 								</div>
 							</div>
-						</th>
+						</td>
 						<td>
-							<div :id="card.qaCardId" class="card">
+							<div :id="card.qaCardId" class="card card-options" :class="{ 'card-light' : cardIndex % 2 === 0}">
 								<div class="card-body2">
 									<div>
 										<a :href="card.content.qa1.uriReleaseLink" target="_blank" class="card-title"
@@ -177,7 +177,7 @@
 									</div>
 									<table class="table table-hover table-borderless table-sm">
 										<tbody>
-											<tr :id="card.qaReleaseDivId1" class="tr-detail"
+											<tr :id="card.qaReleaseDivId1" 
 												v-if="card.content.qa1.hasContent">
 												<td>
 													<a class="dashboard-release" :id="card.qaDashboardReleaseId1"
@@ -198,7 +198,7 @@
 														class="far align-top fa-clipboard dashboard-card-icon"></a>
 												</td>
 											</tr>
-											<tr :id="card.qaReleaseDivId2" class="tr-detail"
+											<tr :id="card.qaReleaseDivId2" 
 												v-if="card.content.qa2.hasContent">
 												<td>
 													<a class="dashboard-release" :id="card.qaDashboardReleaseId2"
@@ -225,7 +225,7 @@
 							</div>
 						</td>
 						<td>
-							<div :id="card.stgCardId" class="card">
+							<div :id="card.stgCardId" class="card card-options" :class="{ 'card-light' : cardIndex % 2 === 0}">
 								<div class="card-body2">
 									<div>
 										<a :href="card.content.stg1.uriReleaseLink" target="_blank" class="card-title"
@@ -235,7 +235,7 @@
 									</div>
 									<table class="table table-hover table-borderless table-sm">
 										<tbody>
-											<tr :id="card.stgReleaseDivId1" class="tr-detail"
+											<tr :id="card.stgReleaseDivId1" 
 												v-if="card.content.stg1.hasContent">
 												<td>
 													<a class="dashboard-release" :id="card.stgDashboardReleaseId1"
@@ -256,7 +256,7 @@
 														class="far align-top fa-clipboard dashboard-card-icon"></a>
 												</td>
 											</tr>
-											<tr :id="card.stgReleaseDivId2" class="tr-detail"
+											<tr :id="card.stgReleaseDivId2" 
 												v-if="card.content.stg2.hasContent">
 												<td>
 													<a class="dashboard-release" :id="card.stgDashboardReleaseId2"
@@ -283,7 +283,7 @@
 							</div>
 						</td>
 						<td>
-							<div :id="card.prdCardId" class="card">
+							<div :id="card.prdCardId" class="card card-options" :class="{ 'card-light' : cardIndex % 2 === 0}">
 								<div class="card-body2">
 									<div>
 										<a :href="card.content.prd1.uriReleaseLink" target="_blank" class="card-title"
@@ -293,7 +293,7 @@
 									</div>
 									<table class="table table-hover table-borderless table-sm">
 										<tbody>
-											<tr :id="card.prdReleaseDivId1" class="tr-detail"
+											<tr :id="card.prdReleaseDivId1" 
 												v-if="card.content.prd1.hasContent">
 												<td>
 													<a class="dashboard-release" :id="card.prdDashboardReleaseId1"
@@ -314,7 +314,7 @@
 														class="far align-top fa-clipboard dashboard-card-icon"></a>
 												</td>
 											</tr>
-											<tr :id="card.prdReleaseDivId2" class="tr-detail"
+											<tr :id="card.prdReleaseDivId2" 
 												v-if="card.content.prd2.hasContent">
 												<td>
 													<a class="dashboard-release" :id="card.prdDashboardReleaseId2"
