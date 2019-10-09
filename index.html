@@ -45,13 +45,23 @@
 						<div class="accordion" id="accordions" v-if="isVssReady === true">
 							<div class="card mt-1" v-for="application in apps">
 								<div class="card-header pt-0" :id="application.id">
-									<button class="btn btn-link" type="button" data-toggle="collapse"
-										:id="application.id" @click="onAppClick($event)"
-										:data-target="application.id" aria-expanded="true"
-										:aria-controls="application.id">
-										{{application.title}}
-									</button>
+									<div class="row  pt-2">
+										<div class="col">
+											<button class="btn btn-link btn-sm" type="button" data-toggle="collapse"
+												:id="application.id" @click="onAppClick($event)"
+												:data-target="application.id" aria-expanded="true"
+												:aria-controls="application.id">
+													{{application.title}}
+											</button>
+										</div>
+										<div class="col text-right">
+											<button :id="application.id" type="button" class="btn btn-info btn-sm" @click="onCheckItems($event)">
+												{{ application.checkItems ? "Uncheck all" : "Check all" }}
+											</button>
+										</div>
+									</div>								
 								</div>
+
 								<div :id="application.id"
 									v-bind:class="['collapse ', application.visible ? 'show' : '']"
 									:aria-labelledby="application.id" data-parent="#accordions">
@@ -81,10 +91,6 @@
 							</div>
 						</div>
 					</div>
-
-					<!-- <div class="form-group text-right">
-						<button type="button" class="btn btn-sm btn-primary" @click="onApplyFilter($event)">Apply filter</button>
-					</div> -->
 				</form>
 			</div>
 		</div>
