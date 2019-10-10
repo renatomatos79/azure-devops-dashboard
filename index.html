@@ -75,7 +75,7 @@
 															src="static/images/loading.gif" />
 													</div>
 													<div class="col-3" v-if="application.isReleaseListLoaded"
-														v-for="release in application.releaseList" >
+														v-for="release in application.releaseList.filter(f => f.isPrincipal === true)" >
 														<div class="custom-control custom-checkbox">
 															<input type="checkbox" class="custom-control-input"  v-model="checkedReleases" :value="release.definitionName" :id="release.definitionId" >
 															<label class="custom-control-label text-dark"
@@ -109,47 +109,29 @@
 				<tbody>
 					<tr v-for="(card, cardIndex) in filteredCards">
 						<td>
-							<div :id="card.devCardId" class="card card-options" :class="{ 'card-light' : cardIndex % 2 === 0}" >
+							<div :id="card.devCardId" class="card card-options" :class="{ 'card-light' : cardIndex % 2 === 0 }" >
 								<div class="card-body2">
 									<div>
-										<a :href="card.content.dev1.uriReleaseLink" target="_blank" class="card-title">
+										<a :href="card.content.dev.length > 0 ? card.content.dev[0].uriReleaseLink : ''" target="_blank" class="card-title">
 											<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
 										</a>
 									</div>
 									<table class="table table-hover table-borderless table-sm">
 										<tbody>
-											<tr v-if="card.content.dev1.hasContent">
+											<tr v-for="item in card.content.dev">
 												<td>
-													<a class="dashboard-release" 
-														:href="card.content.dev1.uriReleasePipeline" target="_blank">
-														{{card.content.dev1.releaseText}}
+													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
+														{{item.releaseText}}
 													</a>
 												</td>
 												<td>
 													<div class="align-top">
-														<i :class="card.content.dev1.statusIconClass"></i>
-														<span :class="card.content.dev1.statusTextClass">{{card.content.dev1.statusText}}</span>
+														<i :class="item.statusIconClass"></i>
+														<span :class="item.statusTextClass">{{item.statusText}}</span>
 													</div>
 												</td>
 												<td>
-													<a :scn="card.content.dev1.slicedControlName" :bid="card.content.dev1.buildId" :rt="card.content.dev1.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
-												</td>
-											</tr>
-											<tr v-if="card.content.dev2.hasContent">
-												<td>
-													<a class="dashboard-release" 
-														:href="card.content.dev2.uriReleasePipeline" target="_blank">
-														{{card.content.dev2.releaseText}}
-													</a>
-												</td>
-												<td>
-													<div class="align-top">
-														<i :class="card.content.dev2.statusIconClass"></i>
-														<span :class="card.content.dev2.statusTextClass">{{card.content.dev2.statusText}}</span>
-													</div>
-												</td>
-												<td>
-													<a :scn="card.content.dev2.slicedControlName" :bid="card.content.dev2.buildId" :rt="card.content.dev2.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
+													<a :scn="item.slicedControlName" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
 										</tbody>
@@ -161,44 +143,26 @@
 							<div :id="card.qaCardId" class="card card-options" :class="{ 'card-light' : cardIndex % 2 === 0}">
 								<div class="card-body2">
 									<div>
-										<a :href="card.content.qa1.uriReleaseLink" target="_blank" class="card-title">
+										<a :href="card.content.qa.length > 0 ? card.content.qa[0].uriReleaseLink : ''" target="_blank" class="card-title">
 											<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
 										</a>
 									</div>
 									<table class="table table-hover table-borderless table-sm">
 										<tbody>
-											<tr v-if="card.content.qa1.hasContent">
+											<tr v-for="item in card.content.qa">
 												<td>
-													<a class="dashboard-release" 
-														:href="card.content.qa1.uriReleasePipeline" target="_blank">
-														{{card.content.qa1.releaseText}}
+													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
+														{{item.releaseText}}
 													</a>
 												</td>
 												<td>
 													<div class="align-top">
-														<i :class="card.content.qa1.statusIconClass"></i>
-														<span :class="card.content.qa1.statusTextClass">{{card.content.qa1.statusText}}</span>
+														<i :class="item.statusIconClass"></i>
+														<span :class="item.statusTextClass">{{item.statusText}}</span>
 													</div>
 												</td>
 												<td>
-													<a :scn="card.content.qa1.slicedControlName" :bid="card.content.qa1.buildId" :rt="card.content.qa1.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
-												</td>
-											</tr>
-											<tr v-if="card.content.qa2.hasContent">
-												<td>
-													<a class="dashboard-release" 
-														:href="card.content.qa2.uriReleasePipeline" target="_blank">
-														{{card.content.qa2.releaseText}}
-													</a>
-												</td>
-												<td>
-													<div class="align-top">
-														<i :class="card.content.qa2.statusIconClass"></i>
-														<span :class="card.content.qa2.statusTextClass">{{card.content.qa2.statusText}}</span>
-													</div>
-												</td>
-												<td>
-													<a :scn="card.content.qa2.slicedControlName" :bid="card.content.qa2.buildId" :rt="card.content.qa2.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
+													<a :scn="item.slicedControlName" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
 										</tbody>
@@ -210,44 +174,26 @@
 							<div :id="card.stgCardId" class="card card-options" :class="{ 'card-light' : cardIndex % 2 === 0}">
 								<div class="card-body2">
 									<div>
-										<a :href="card.content.stg1.uriReleaseLink" target="_blank" class="card-title">
+										<a :href="card.content.stg.length > 0 ? card.content.stg[0].uriReleaseLink : ''" target="_blank" class="card-title">
 											<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
 										</a>
 									</div>
 									<table class="table table-hover table-borderless table-sm">
 										<tbody>
-											<tr v-if="card.content.stg1.hasContent">
+											<tr v-for="item in card.content.stg">
 												<td>
-													<a class="dashboard-release" 
-														:href="card.content.stg1.uriReleasePipeline" target="_blank">
-														{{card.content.stg1.releaseText}}
+													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
+														{{item.releaseText}}
 													</a>
 												</td>
 												<td>
 													<div class="align-top">
-														<i :class="card.content.stg1.statusIconClass"></i>
-														<span :class="card.content.stg1.statusTextClass">{{card.content.stg1.statusText}}</span>
+														<i :class="item.statusIconClass"></i>
+														<span :class="item.statusTextClass">{{item.statusText}}</span>
 													</div>
 												</td>
 												<td>
-													<a :scn="card.content.stg1.slicedControlName" :bid="card.content.stg1.buildId" :rt="card.content.stg1.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
-												</td>
-											</tr>
-											<tr v-if="card.content.stg2.hasContent">
-												<td>
-													<a class="dashboard-release" 
-														:href="card.content.stg2.uriReleasePipeline" target="_blank">
-														{{card.content.stg2.releaseText}}
-													</a>
-												</td>
-												<td>
-													<div class="align-top">
-														<i :class="card.content.stg2.statusIconClass"></i>
-														<span :class="card.content.stg2.statusTextClass">{{card.content.stg2.statusText}}</span>
-													</div>
-												</td>
-												<td>
-													<a :scn="card.content.stg2.slicedControlName" :bid="card.content.stg2.buildId" :rt="card.content.stg2.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
+													<a :scn="item.slicedControlName" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
 										</tbody>
@@ -259,44 +205,26 @@
 							<div :id="card.prdCardId" class="card card-options" :class="{ 'card-light' : cardIndex % 2 === 0}">
 								<div class="card-body2">
 									<div>
-										<a :href="card.content.prd1.uriReleaseLink" target="_blank" class="card-title">
+										<a :href="card.content.prd.length > 0 ? card.content.prd[0].uriReleaseLink : ''" target="_blank" class="card-title">
 											<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
 										</a>
 									</div>
 									<table class="table table-hover table-borderless table-sm">
 										<tbody>
-											<tr v-if="card.content.prd1.hasContent">
+											<tr v-for="item in card.content.prd">
 												<td>
-													<a class="dashboard-release" 
-														:href="card.content.prd1.uriReleasePipeline" target="_blank">
-														{{card.content.prd1.releaseText}}
+													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
+														{{item.releaseText}}
 													</a>
 												</td>
 												<td>
 													<div class="align-top">
-														<i :class="card.content.prd1.statusIconClass"></i>
-														<span :class="card.content.prd1.statusTextClass">{{card.content.prd1.statusText}}</span>
+														<i :class="item.statusIconClass"></i>
+														<span :class="item.statusTextClass">{{item.statusText}}</span>
 													</div>
 												</td>
 												<td>
-													<a :scn="card.content.prd1.slicedControlName" :bid="card.content.prd1.buildId" :rt="card.content.prd1.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
-												</td>
-											</tr>
-											<tr v-if="card.content.prd2.hasContent">
-												<td>
-													<a class="dashboard-release" 
-														:href="card.content.prd2.uriReleasePipeline" target="_blank">
-														{{card.content.prd2.releaseText}}
-													</a>
-												</td>
-												<td>
-													<div class="align-top">
-														<i :class="card.content.prd2.statusIconClass"></i>
-														<span :class="card.content.prd2.statusTextClass">{{card.content.prd2.statusText}}</span>
-													</div>
-												</td>
-												<td>
-													<a :scn="card.content.prd2.slicedControlName" :bid="card.content.prd2.buildId" :rt="card.content.prd2.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
+													<a :scn="item.slicedControlName" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
 										</tbody>
