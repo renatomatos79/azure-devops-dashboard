@@ -2,11 +2,11 @@
 	"manifestVersion": 1,
 	"id": "dashboard-index-v2",
 	"publisher": "mediahub",
-	"version": "1.0.27",
+	"version": "1.0.28",
 	"name": "Releases MediaHub - Overview v2",
 	"description": "Overview Releases Media Hub Index",
 	"public": false,
-	
+	"baseUri": "https://localhost",
 	"categories": [
 		"Azure Pipelines"
 	],
@@ -70,6 +70,10 @@
 		},
 		{
 			"path": "lib/lodash.min.js",
+			"addressable": true
+		},
+		{
+			"path": "lib/axios.min.js",
 			"addressable": true
 		},
 		{
