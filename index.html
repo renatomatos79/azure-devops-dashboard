@@ -47,11 +47,11 @@
 								<div class="card-header pt-0" :id="application.id">
 									<div class="row  pt-2">
 										<div class="col">
-											<button class="btn btn-link btn-sm" type="button" data-toggle="collapse"
+											<button class="btn btn-link btn-sm font-weight-bold" :class="'text-'+application.color" type="button" data-toggle="collapse"
 												:id="application.id" @click="onAppClick($event)"
 												:data-target="application.id" aria-expanded="true"
 												:aria-controls="application.id">
-													{{application.title}}
+													{{application.title}}													
 											</button>
 										</div>
 										<div class="col text-right">
@@ -114,7 +114,7 @@
 									<div>
 										<a :href="card.content.dev1.uriReleaseLink" target="_blank" class="card-title"
 											:id="card.devReleaseLinkId">
-											<span :class="card.badgeClassName">{{cardIndex}} - {{card.releaseTitle}}</span>
+											<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
 										</a>
 									</div>
 									<table class="table table-borderless table-sm">
@@ -136,8 +136,7 @@
 													</div>
 												</td>
 												<td>
-													<a :id="card.devModalReleaseLinkId1"
-														class="far align-top fa-clipboard dashboard-card-icon"></a>
+													<a :scn="card.content.dev1.slicedControlName" :bid="card.content.dev1.buildId" :rt="card.content.dev1.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
 											<tr :id="card.devReleaseDivId2" 
@@ -157,8 +156,7 @@
 													</div>
 												</td>
 												<td>
-													<a :id="card.devModalReleaseLinkId2"
-														class="far align-top fa-clipboard dashboard-card-icon"></a>
+													<a :scn="card.content.dev2.slicedControlName" :bid="card.content.dev2.buildId" :rt="card.content.dev2.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
 										</tbody>
@@ -189,13 +187,11 @@
 													<div class="align-top">
 														<i :id="card.qaStatusIconId1"
 															:class="card.content.qa1.statusIconClass"></i>
-														<span :id="card.qaStatusTextId1"
-															:class="card.content.qa1.statusTextClass">{{card.content.qa1.statusText}}</span>
+														<span :id="card.qaStatusTextId1" :class="card.content.qa1.statusTextClass">{{card.content.qa1.statusText}}</span>
 													</div>
 												</td>
 												<td>
-													<a :id="card.qaModalReleaseLinkId1"
-														class="far align-top fa-clipboard dashboard-card-icon"></a>
+													<a :scn="card.content.qa1.slicedControlName" :bid="card.content.qa1.buildId" :rt="card.content.qa1.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
 											<tr :id="card.qaReleaseDivId2" 
@@ -210,13 +206,11 @@
 													<div class="align-top">
 														<i :id="card.qaStatusIconId2"
 															:class="card.content.qa2.statusIconClass"></i>
-														<span :id="card.qaStatusTextId2"
-															:class="card.content.qa2.statusTextClass">{{card.content.qa2.statusText}}</span>
+														<span :id="card.qaStatusTextId2" :class="card.content.qa2.statusTextClass">{{card.content.qa2.statusText}}</span>
 													</div>
 												</td>
 												<td>
-													<a :id="card.qaModalReleaseLinkId2"
-														class="far align-top fa-clipboard dashboard-card-icon"></a>
+													<a :scn="card.content.qa2.slicedControlName" :bid="card.content.qa2.buildId" :rt="card.content.qa2.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
 										</tbody>
@@ -252,8 +246,7 @@
 													</div>
 												</td>
 												<td>
-													<a :id="card.stgModalReleaseLinkId1"
-														class="far align-top fa-clipboard dashboard-card-icon"></a>
+													<a :scn="card.content.stg1.slicedControlName" :bid="card.content.stg1.buildId" :rt="card.content.stg1.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
 											<tr :id="card.stgReleaseDivId2" 
@@ -273,8 +266,7 @@
 													</div>
 												</td>
 												<td>
-													<a :id="card.stgModalReleaseLinkId2"
-														class="far align-top fa-clipboard dashboard-card-icon"></a>
+													<a :scn="card.content.stg2.slicedControlName" :bid="card.content.stg2.buildId" :rt="card.content.stg2.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
 										</tbody>
@@ -310,8 +302,7 @@
 													</div>
 												</td>
 												<td>
-													<a :id="card.prdModalReleaseLinkId1"
-														class="far align-top fa-clipboard dashboard-card-icon"></a>
+													<a :scn="card.content.prd1.slicedControlName" :bid="card.content.prd1.buildId" :rt="card.content.prd1.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
 											<tr :id="card.prdReleaseDivId2" 
@@ -331,8 +322,7 @@
 													</div>
 												</td>
 												<td>
-													<a :id="card.prdModalReleaseLinkId2"
-														class="far align-top fa-clipboard dashboard-card-icon"></a>
+													<a :scn="card.content.prd2.slicedControlName" :bid="card.content.prd2.buildId" :rt="card.content.prd2.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
 										</tbody>
