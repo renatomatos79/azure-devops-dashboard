@@ -75,7 +75,7 @@
 															src="static/images/loading.gif" />
 													</div>
 													<div class="col-3" v-if="application.isReleaseListLoaded"
-														v-for="release in application.releaseList.filter(f => f.isPrincipal === true)" >
+														v-for="release in application.releaseList" >
 														<div class="custom-control custom-checkbox">
 															<input type="checkbox" class="custom-control-input"  v-model="checkedReleases" :value="release.definitionName" :id="release.definitionId" >
 															<label class="custom-control-label text-dark"
