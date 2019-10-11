@@ -136,23 +136,39 @@ a.dashboard-release {
 }
 
 .card-options {
-    min-height: 125px;
+    min-height: 80px;
 }
 
 .fade-enter-active, .fade-leave-active {
     transition: opacity 0.25s ease-out;
-  }
+}
   
-  .fade-enter, .fade-leave-to {
+.fade-enter, .fade-leave-to {
     opacity: 0;
-  }
+}
 
-
-  .my-custom-scrollbar {
+.my-custom-scrollbar {
     position: relative;
     height: 200px;
     overflow: auto;
-    }
-    .table-wrapper-scroll-y {
+}
+
+.table-wrapper-scroll-y {
     display: block;
-    }  
+}
+
+.table-fixed thead {
+    width: 100%;
+  }
+  .table-fixed tbody {
+    height: 75px;
+    overflow-y: auto;
+    width: 100%;
+  }
+  .table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+    display: block;
+  }
+  .table-fixed tbody td, .table-fixed thead > tr> th {
+    float: left;
+    border-bottom-width: 0;
+  } 

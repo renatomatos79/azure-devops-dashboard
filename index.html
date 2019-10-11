@@ -111,21 +111,21 @@
 											<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
 										</a>
 									</div>
-									<table class="table table-hover table-borderless table-sm">
+									<table class="table table-hover table-borderless table-fixed">
 										<tbody>
 											<tr v-for="item in card.content.devShowMore ? card.content.devFull : card.content.dev">
-												<td>
+												<td class="col-sm-6">
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
 													</a>
 												</td>
-												<td>
+												<td class="col-sm-4">
 													<div class="align-top text-nowrap">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
 													</div>
 												</td>
-												<td>
+												<td class="col-sm-2">
 													<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
@@ -149,21 +149,21 @@
 											<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
 										</a>
 									</div>
-									<table class="table table-hover table-borderless table-sm">
+									<table class="table table-hover table-borderless table-fixed">
 										<tbody>
 											<tr v-for="item in card.content.qaShowMore ? card.content.qaFull : card.content.qa">
-												<td>
+												<td class="col-sm-6">
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
 													</a>
 												</td>
-												<td>
+												<td class="col-sm-4">
 													<div class="align-top text-nowrap">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
 													</div>
 												</td>
-												<td>
+												<td class="col-sm-2">
 													<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
@@ -187,21 +187,21 @@
 											<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
 										</a>
 									</div>
-									<table class="table table-hover table-borderless table-sm">
+									<table class="table table-hover table-borderless table-fixed">
 										<tbody>
 											<tr v-for="item in card.content.stgShowMore ? card.content.stgFull : card.content.stg">
-												<td>
+												<td class="col-sm-6">
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
 													</a>
 												</td>
-												<td>
+												<td class="col-sm-4">
 													<div class="align-top text-nowrap">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
 													</div>
 												</td>
-												<td>
+												<td class="col-sm-2">
 													<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
@@ -225,21 +225,21 @@
 											<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
 										</a>
 									</div>
-									<table class="table table-hover table-borderless table-sm">
+									<table class="table table-hover table-borderless table-fixed">
 										<tbody>
 											<tr v-for="item in card.content.prdShowMore ? card.content.prdFull : card.content.prd">
-												<td>
+												<td class="col-sm-6">
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
 													</a>
 												</td>
-												<td>
+												<td class="col-sm-4">
 													<div class="align-top text-nowrap">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
 													</div>
 												</td>
-												<td>
+												<td class="col-sm-2">
 													<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
