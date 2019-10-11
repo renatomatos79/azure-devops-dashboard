@@ -118,14 +118,14 @@
 									</div>
 									<table class="table table-hover table-borderless table-sm">
 										<tbody>
-											<tr v-for="item in card.content.dev">
+											<tr v-for="item in card.content.devShowMore ? card.content.devFull : card.content.dev">
 												<td>
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
 													</a>
 												</td>
 												<td>
-													<div class="align-top">
+													<div class="align-top text-nowrap">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
 													</div>
@@ -135,6 +135,13 @@
 												</td>
 											</tr>
 										</tbody>
+										<tfoot v-if="card.content.dev.length !== card.content.devFull.length">
+											<tr>
+												<td colspan="3" class="text-center">
+													<a class="btn btn sm text-primary" @click="onShowMoreClick($event, 'dev')"><h6 :cardid="card.id">{{ card.content.devShowMore ? 'less' : 'more' }}</h6></a>
+												</td>
+											</tr>
+										</tfoot> 
 									</table>
 								</div>
 							</div>
@@ -149,14 +156,14 @@
 									</div>
 									<table class="table table-hover table-borderless table-sm">
 										<tbody>
-											<tr v-for="item in card.content.qa">
+											<tr v-for="item in card.content.qaShowMore ? card.content.qaFull : card.content.qa">
 												<td>
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
 													</a>
 												</td>
 												<td>
-													<div class="align-top">
+													<div class="align-top text-nowrap">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
 													</div>
@@ -166,6 +173,13 @@
 												</td>
 											</tr>
 										</tbody>
+										<tfoot v-if="card.content.qa.length !== card.content.qaFull.length">
+											<tr>
+												<td colspan="3" class="text-center">
+													<a class="btn btn sm text-primary" @click="onShowMoreClick($event, 'qa')"><h6 :cardid="card.id">{{ card.content.qaShowMore ? 'less' : 'more' }}</h6></a>
+												</td>
+											</tr>
+										</tfoot> 
 									</table>
 								</div>
 							</div>
@@ -180,14 +194,14 @@
 									</div>
 									<table class="table table-hover table-borderless table-sm">
 										<tbody>
-											<tr v-for="item in card.content.stg">
+											<tr v-for="item in card.content.stgShowMore ? card.content.stgFull : card.content.stg">
 												<td>
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
 													</a>
 												</td>
 												<td>
-													<div class="align-top">
+													<div class="align-top text-nowrap">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
 													</div>
@@ -197,6 +211,13 @@
 												</td>
 											</tr>
 										</tbody>
+										<tfoot v-if="card.content.stg.length !== card.content.stgFull.length">
+											<tr>
+												<td colspan="3" class="text-center">
+													<a class="btn btn sm text-primary" @click="onShowMoreClick($event, 'stg')"><h6 :cardid="card.id">{{ card.content.stgShowMore ? 'less' : 'more' }}</h6></a>
+												</td>
+											</tr>
+										</tfoot> 
 									</table>
 								</div>
 							</div>
@@ -211,14 +232,14 @@
 									</div>
 									<table class="table table-hover table-borderless table-sm">
 										<tbody>
-											<tr v-for="item in card.content.prd">
+											<tr v-for="item in card.content.prdShowMore ? card.content.prdFull : card.content.prd">
 												<td>
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
 													</a>
 												</td>
 												<td>
-													<div class="align-top">
+													<div class="align-top text-nowrap">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
 													</div>
@@ -228,6 +249,13 @@
 												</td>
 											</tr>
 										</tbody>
+										<tfoot v-if="card.content.prd.length !== card.content.prdFull.length">
+											<tr>
+												<td colspan="3" class="text-center">
+													<a class="btn btn sm text-primary" @click="onShowMoreClick($event, 'prd')"><h6 :cardid="card.id">{{ card.content.prdShowMore ? 'less' : 'more' }}</h6></a>
+												</td>
+											</tr>
+										</tfoot> 
 									</table>
 								</div>
 							</div>
