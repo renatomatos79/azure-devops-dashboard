@@ -16,14 +16,9 @@
 		<nav class="navbar bg-info">
 			<a class="navbar-brand text-white">{{ title }}</a>
 			<form class="form-inline">
-				<button v-if="!filtered" class="btn btn-sm my-2 my-sm-0 text-white" type="button"
+				<button :class="['btn btn-sm  my-2 my-sm-0 text-white ', filtered ? 'active' : '' ]" type="button"
 					@click="onFilter($event)" style="margin-right: 0px">
-					<img src="static/images/filter-icon-16.png" /> Filter
-				</button>
-
-				<button v-if="filtered" class="btn btn-sm  my-2 my-sm-0 active text-white" type="button"
-					@click="onFilter($event)" style="margin-right: 0px">
-					<img src="static/images/filter-icon-16.png" /> Filter
+					<img src="static/images/filter-icon-16.png" /> {{ filtered ? 'Hide Filter' : 'Show Filter' }}
 				</button>
 			</form>
 		</nav>
