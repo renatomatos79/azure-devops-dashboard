@@ -86,9 +86,6 @@ body {
 a.dashboard-release {
     text-decoration: none !important;
     color: black !important;
-    width: 13em;
-    max-width: 13em;
-    display: inline-block;
 }
 
 .failed-status-icon:before {
@@ -159,17 +156,10 @@ a.dashboard-release {
 
 .table-fixed thead {
     width: 100%;
-  }
-  .table-fixed tbody {
+}
+
+.table-fixed tbody {
     height: 75px;
     overflow-y: auto;
     width: 100%;
-  }
-  .table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
-    display: block;
-  }
-  .table-fixed tbody td, .table-fixed thead > tr> th {
-    float: left;
-    border-bottom-width: 0;
-} 
-
+}
