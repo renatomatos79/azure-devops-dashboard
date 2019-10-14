@@ -20,6 +20,24 @@
 					@click="onFilter($event)" style="margin-right: 0px">
 					<img src="static/images/filter-icon-16.png" /> {{ filtered ? 'Hide Filter' : 'Show Filter' }}
 				</button>
+
+				<div class="btn-group">
+					<button type="button" class="btn btn-sm btn-info text-white dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @click="onChangeSettings($event)">
+						<img src="static/images/cogs-icon-16.png" /> 
+						Settings
+					</button>
+					<ul :class="['dropdown-menu checkbox-menu bg-info allow-focus mt-3 dropdown-menu-right ', settings.show ? 'show' : 'hide']">
+						<li >
+							<label>
+								<input type="checkbox" v-model="settings.showMore"> <span class="smal text-white"> Show more</span> 
+							</label>
+						</li>
+						<li >
+							<label>
+								<input type="checkbox" v-model="settings.showPhaseName"> <span class="smal text-white"> Show phase name</span> 
+							</label>
+						</li>
+					</ul>
 			</form>
 		</nav>
 		<!-- end navigation bar -->
@@ -112,7 +130,7 @@
 												<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
 											</a>
 										</div>
-										<div class="col text-xs-center text-sm-center text-right" v-if="card.content.dev.length !== card.content.devFull.length">
+										<div class="col text-xs-center text-sm-center text-right" v-if="settings.showMore && (card.content.dev.length !== card.content.devFull.length)">
 											<a class="text-primary" @click="onShowMoreClick($event, 'dev')" class="card-title">
 												<span :cardid="card.id">{{ card.content.devShowMore ? 'Show less' : 'Show more' }}</span>
 											</a>
@@ -124,8 +142,8 @@
 												<td>
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
-														<br>
-														<small class="text-muted">{{item.environmentFullName}}</small>
+														<br v-if="settings.showPhaseName">
+														<small class="text-muted" v-if="settings.showPhaseName">{{item.environmentFullName}}</small>
 													</a>
 												</td>
 												<td>
