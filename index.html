@@ -138,7 +138,7 @@
 									</div>
 									<table class="table table-hover table-borderless table-fixed">
 										<tbody>
-											<tr v-for="item in card.content.devShowMore ? card.content.devFull : card.content.dev">
+											<tr v-for="item in (settings.showMore && card.content.devShowMore) ? card.content.devFull : card.content.dev">
 												<td>
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
@@ -170,7 +170,7 @@
 												<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
 											</a>
 										</div>
-										<div class="col text-xs-center text-sm-center text-right" v-if="card.content.qa.length !== card.content.qaFull.length">
+										<div class="col text-xs-center text-sm-center text-right" v-if="settings.showMore && (card.content.qa.length !== card.content.qaFull.length)">
 											<a class="text-primary" @click="onShowMoreClick($event, 'qa')" class="card-title">
 												<span :cardid="card.id">{{ card.content.devShowMore ? 'Show less' : 'Show more' }}</span>
 											</a>
@@ -178,13 +178,13 @@
 									</div>
 									<table class="table table-hover table-borderless table-fixed">
 										<tbody>
-											<tr v-for="item in card.content.qaShowMore ? card.content.qaFull : card.content.qa">
+											<tr v-for="item in (settings.showMore && card.content.qaShowMore) ? card.content.qaFull : card.content.qa">
 												<td>
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
 													</a>
-													<br>
-													<small class="text-muted">{{item.environmentFullName}}</small>
+													<br v-if="settings.showPhaseName">
+													<small class="text-muted" v-if="settings.showPhaseName">{{item.environmentFullName}}</small>
 												</td>
 												<td>
 													<div class="align-top text-nowrap">
@@ -210,7 +210,7 @@
 												<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
 											</a>
 										</div>
-										<div class="col text-xs-center text-sm-center text-right" v-if="card.content.stg.length !== card.content.stgFull.length">
+										<div class="col text-xs-center text-sm-center text-right" v-if="settings.showMore && (card.content.stg.length !== card.content.stgFull.length)">
 											<a class="text-primary" @click="onShowMoreClick($event, 'stg')" class="card-title">
 												<span :cardid="card.id">{{ card.content.devShowMore ? 'Show less' : 'Show more' }}</span>
 											</a>
@@ -218,13 +218,13 @@
 									</div>
 									<table class="table table-hover table-borderless table-fixed">
 										<tbody>
-											<tr v-for="item in card.content.stgShowMore ? card.content.stgFull : card.content.stg">
+											<tr v-for="item in (settings.showMore && card.content.stgShowMore) ? card.content.stgFull : card.content.stg">
 												<td>
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
 													</a>
-													<br>
-													<small class="text-muted">{{item.environmentFullName}}</small>
+													<br v-if="settings.showPhaseName">
+													<small class="text-muted" v-if="settings.showPhaseName">{{item.environmentFullName}}</small>
 												</td>
 												<td>
 													<div class="align-top text-nowrap">
@@ -250,7 +250,7 @@
 												<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
 											</a>
 										</div>
-										<div class="col text-xs-center text-sm-center text-right" v-if="card.content.prd.length !== card.content.prdFull.length">
+										<div class="col text-xs-center text-sm-center text-right" v-if="settings.showMore && (card.content.prd.length !== card.content.prdFull.length)">
 											<a class="text-primary" @click="onShowMoreClick($event, 'prd')" class="card-title">
 												<span :cardid="card.id">{{ card.content.prdShowMore ? 'Show less' : 'Show more' }}</span>
 											</a>
@@ -258,13 +258,13 @@
 									</div>
 									<table class="table table-hover table-borderless table-fixed">
 										<tbody>
-											<tr v-for="item in card.content.prdShowMore ? card.content.prdFull : card.content.prd">
+											<tr v-for="item in (settings.showMore && card.content.prdShowMore) ? card.content.prdFull : card.content.prd">
 												<td>
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
 													</a>													
-													<br>
-													<small class="text-muted">{{item.environmentFullName}}</small>
+													<br v-if="settings.showPhaseName">
+													<small class="text-muted" v-if="settings.showPhaseName">{{item.environmentFullName}}</small>
 												</td>
 												<td>
 													<div class="align-top text-nowrap">
