@@ -2,10 +2,11 @@
 	"manifestVersion": 1,
 	"id": "dashboard-index-v2",
 	"publisher": "mediahub",
-	"version": "1.0.37",
+	"version": "1.0.39",
 	"name": "Releases MediaHub - Overview v2",
 	"description": "Overview Releases Media Hub Index",
 	"public": false,
+	
 	"categories": [
 		"Azure Pipelines"
 	],
@@ -137,6 +138,10 @@
 		},
 		{
 			"path": "static/images/cogs-icon-16.png",
+			"addressable": true
+		},
+		{
+			"path": "static/images/refresh-icon-16.png",
 			"addressable": true
 		}
 	]

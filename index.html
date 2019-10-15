@@ -16,11 +16,17 @@
 		<nav class="navbar bg-info">
 			<a class="navbar-brand text-white">{{ title }}</a>
 			<form class="form-inline">
+				<!-- refresh -->
+				<button class="btn btn-sm  my-2 my-sm-0 text-white" type="button" v-if="hasAppRunning === false"
+					@click="onRefresh($event)" style="margin-right: 0px">
+					<img src="static/images/refresh-icon-16.png" /> Refresh
+				</button>
+				<!-- show filter -->
 				<button :class="['btn btn-sm  my-2 my-sm-0 text-white ', filtered ? 'active' : '' ]" type="button"
 					@click="onFilter($event)" style="margin-right: 0px">
 					<img src="static/images/filter-icon-16.png" /> {{ filtered ? 'Hide Filter' : 'Show Filter' }}
 				</button>
-
+				<!-- settings -->
 				<div class="btn-group">
 					<button type="button" class="btn btn-sm btn-info text-white dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @click="onChangeSettings($event)">
 						<img src="static/images/cogs-icon-16.png" /> 
