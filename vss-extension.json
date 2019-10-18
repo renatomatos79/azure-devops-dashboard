@@ -2,7 +2,7 @@
 	"manifestVersion": 1,
 	"id": "dashboard-index-v2",
 	"publisher": "mediahub",
-	"version": "1.0.39",
+	"version": "1.0.42",
 	"name": "Releases MediaHub - Overview v2",
 	"description": "Overview Releases Media Hub Index",
 	"public": false,
@@ -34,7 +34,7 @@
 			"id": "dashboard-index-v2",
 			"type": "ms.vss-web.hub",
 			"targets": [
-				"ms.vss-code-web.code-hub-group"
+				"ms.vss-build-web.build-release-hub-group"
 			],
 			"properties": {
 				"name": "Releases MediaHub - Overview v2",

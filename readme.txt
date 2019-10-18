@@ -34,3 +34,12 @@ tfx extension create
 
 para debug adicione a linha abaixo em vss-extension.json
 "baseUri": "https://localhost"
+
+
+targets:
+- desenvolvimento
+"ms.vss-code-web.code-hub-group"
+
+- production
+"ms.vss-build-web.build-release-hub-group"
+
