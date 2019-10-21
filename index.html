@@ -43,6 +43,11 @@
 								<input type="checkbox" v-model="settings.showPhaseName"> <span class="smal text-white"> Show phase name</span> 
 							</label>
 						</li>
+						<li >
+							<label>
+								<input type="checkbox" v-model="settings.showReason"> <span class="smal text-white"> Show reason</span> 
+							</label>
+						</li>
 					</ul>
 			</form>
 		</nav>
@@ -153,9 +158,11 @@
 													</a>
 												</td>
 												<td>
-													<div class="align-top text-nowrap">
+													<div class="align-top text-nowrap text-right">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
+														<br v-if="settings.showReason">
+														<small :class="item.reasonColor" v-if="settings.showReason">{{item.reason}}</small>
 													</div>
 												</td>
 												<td>
@@ -193,9 +200,11 @@
 													<small class="text-muted" v-if="settings.showPhaseName">{{item.environmentFullName}}</small>
 												</td>
 												<td>
-													<div class="align-top text-nowrap">
+													<div class="align-top text-nowrap text-right">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
+														<br v-if="settings.showReason">
+														<small :class="item.reasonColor" v-if="settings.showReason">{{item.reason}}</small>
 													</div>
 												</td>
 												<td>
@@ -233,9 +242,11 @@
 													<small class="text-muted" v-if="settings.showPhaseName">{{item.environmentFullName}}</small>
 												</td>
 												<td>
-													<div class="align-top text-nowrap">
+													<div class="align-top text-nowrap text-right">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
+														<br v-if="settings.showReason">
+														<small :class="item.reasonColor" v-if="settings.showReason">{{item.reason}}</small>
 													</div>
 												</td>
 												<td>
@@ -273,9 +284,11 @@
 													<small class="text-muted" v-if="settings.showPhaseName">{{item.environmentFullName}}</small>
 												</td>
 												<td>
-													<div class="align-top text-nowrap">
+													<div class="align-top text-nowrap text-right">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
+														<br v-if="settings.showReason">
+														<small :class="item.reasonColor" v-if="settings.showReason">{{item.reason}}</small>
 													</div>
 												</td>
 												<td>
