@@ -133,7 +133,7 @@ a.dashboard-release {
 }
 
 .card-options {
-    min-height: 80px;
+    min-height: 100px! important;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -195,4 +195,24 @@ a.dashboard-release {
 .checkbox-menu li.active label:hover,
 .checkbox-menu li.active label:focus {
     background-color: #b8b8ff;
+}
+
+.table-cards thead tr th:first {
+    width: 15px!important;
+}
+
+.table-cards tbody tr td:first {
+    width: 15px!important;
+}
+
+card-body2 table body tr td:nth-child(0) {
+    width: 60%;
+}
+
+card-body2 table body tr td:nth-child(1) {
+    width: 20%;
+}
+
+card-body2 table body tr td:nth-child(2) {
+    width: 10%;
 }

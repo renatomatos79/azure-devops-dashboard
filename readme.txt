@@ -30,7 +30,8 @@ create vss-extension.json:
 echo "" >> vss-extension.json
 
 build extension:
-tfx extension create
+tfx extension create --output-path dist
+ tfx extension create --output-path dist --manifest-globs vss-extension-dev.json
 
 para debug adicione a linha abaixo em vss-extension.json
 "baseUri": "https://localhost"
@@ -43,3 +44,6 @@ targets:
 - production
 "ms.vss-build-web.build-release-hub-group"
 
+- identificador da extensão para desenv e produção:
+"id": "dashboard-index-desev"
+"id": "dashboard-index-v2"

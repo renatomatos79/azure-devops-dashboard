@@ -6,6 +6,8 @@
 	<!-- Bootstrap -->
 	<link href="static/css/all.min.css" rel="stylesheet" type="text/css" />
 	<link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<!-- Bootstrap Extension -->
+	<link href="static/css/bootstrap-extension.min.css" rel="stylesheet" type="text/css" />
 	<!-- Dashboard -->
 	<link href="static/css/dashboard.css" rel="stylesheet" type="text/css" />
 </head>
@@ -17,7 +19,7 @@
 			<a class="navbar-brand text-white">{{ title }}</a>
 			<form class="form-inline">
 				<!-- refresh -->
-				<button class="btn btn-sm  my-2 my-sm-0 text-white" type="button" v-if="hasAppRunning === false"
+				<button class="btn btn-sm  my-2 my-sm-0 text-white" type="button" v-if="settings.autoRefresh === false"
 					@click="onRefresh($event)" style="margin-right: 0px">
 					<img src="static/images/refresh-icon-16.png" /> Refresh
 				</button>
@@ -45,10 +47,12 @@
 						</li>
 						<li >
 							<label>
-								<input type="checkbox" v-model="settings.showReason"> <span class="smal text-white"> Show reason</span> 
+								<input type="checkbox" v-model="settings.autoRefresh"> <span class="smal text-white"> Auto refresh</span> 
 							</label>
 						</li>
 					</ul>
+				</div>
+				<!-- end settings -->
 			</form>
 		</nav>
 		<!-- end navigation bar -->
@@ -124,6 +128,7 @@
 			<table id="table-cards" class="table table-sm" cellspacing="0" width="100%">
 				<thead>
 					<tr>
+						<th scope="col"></th>
 						<th scope="col">Development</th>
 						<th scope="col">Quality</th>
 						<th scope="col">Staging</th>
@@ -132,24 +137,19 @@
 				</thead>
 				<tbody>
 					<tr v-for="(card, cardIndex) in filteredCards">
+						<td style="padding-left:5px; line-height: 50px; overflow: hidden">
+							<div class="rotate-sm-l-90" :class="card.app.margin">
+								<a :href="card.content.dev.length > 0 ? card.content.dev[0].uriReleaseLink : ''" target="_blank" class="card-title">
+									<span :class="card.badgeClassName">{{card.app.title}}</span>
+								</a>
+							</div>
+						</td>
 						<td>
-							<div :id="card.devCardId" class="card card-options" :class="{ 'card-light' : cardIndex % 2 === 0 }" >
+							<div :id="card.devCardId" class="card card-options border-strong-left " :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']" >
 								<div class="card-body2">
-									<div class="row">
-										<div class="col">
-											<a :href="card.content.dev.length > 0 ? card.content.dev[0].uriReleaseLink : ''" target="_blank" class="card-title">
-												<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
-											</a>
-										</div>
-										<div class="col text-xs-center text-sm-center text-right" v-if="settings.showMore && (card.content.dev.length !== card.content.devFull.length)">
-											<a class="text-primary" @click="onShowMoreClick($event, 'dev')" class="card-title">
-												<span :cardid="card.id">{{ card.content.devShowMore ? 'Show less' : 'Show more' }}</span>
-											</a>
-										</div>									
-									</div>
 									<table class="table table-hover table-borderless table-fixed">
 										<tbody>
-											<tr v-for="item in (settings.showMore && card.content.devShowMore) ? card.content.devFull : card.content.dev">
+											<tr v-for="item in (settings.showMore ? card.content.devFull : card.content.dev)">
 												<td>
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
@@ -161,8 +161,6 @@
 													<div class="align-top text-nowrap text-right">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
-														<br v-if="settings.showReason">
-														<small :class="item.reasonColor" v-if="settings.showReason">{{item.reason}}</small>
 													</div>
 												</td>
 												<td>
@@ -175,23 +173,11 @@
 							</div>
 						</td>
 						<td>
-							<div :id="card.qaCardId" class="card card-options" :class="{ 'card-light' : cardIndex % 2 === 0}">
+							<div :id="card.qaCardId" class="card card-options border-strong-left" :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']">
 								<div class="card-body2">
-									<div class="row">
-										<div class="col">
-											<a :href="card.content.qa.length > 0 ? card.content.qa[0].uriReleaseLink : ''" target="_blank" class="card-title">
-												<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
-											</a>
-										</div>
-										<div class="col text-xs-center text-sm-center text-right" v-if="settings.showMore && (card.content.qa.length !== card.content.qaFull.length)">
-											<a class="text-primary" @click="onShowMoreClick($event, 'qa')" class="card-title">
-												<span :cardid="card.id">{{ card.content.devShowMore ? 'Show less' : 'Show more' }}</span>
-											</a>
-										</div>									
-									</div>
 									<table class="table table-hover table-borderless table-fixed">
 										<tbody>
-											<tr v-for="item in (settings.showMore && card.content.qaShowMore) ? card.content.qaFull : card.content.qa">
+											<tr v-for="item in (settings.showMore ? card.content.qaFull : card.content.qa)">
 												<td>
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
@@ -203,8 +189,6 @@
 													<div class="align-top text-nowrap text-right">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
-														<br v-if="settings.showReason">
-														<small :class="item.reasonColor" v-if="settings.showReason">{{item.reason}}</small>
 													</div>
 												</td>
 												<td>
@@ -217,23 +201,11 @@
 							</div>
 						</td>
 						<td>
-							<div :id="card.stgCardId" class="card card-options" :class="{ 'card-light' : cardIndex % 2 === 0}">
+							<div :id="card.stgCardId" class="card card-options border-strong-left" :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']">
 								<div class="card-body2">
-									<div class="row">
-										<div class="col">
-											<a :href="card.content.stg.length > 0 ? card.content.stg[0].uriReleaseLink : ''" target="_blank" class="card-title">
-												<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
-											</a>
-										</div>
-										<div class="col text-xs-center text-sm-center text-right" v-if="settings.showMore && (card.content.stg.length !== card.content.stgFull.length)">
-											<a class="text-primary" @click="onShowMoreClick($event, 'stg')" class="card-title">
-												<span :cardid="card.id">{{ card.content.devShowMore ? 'Show less' : 'Show more' }}</span>
-											</a>
-										</div>
-									</div>
 									<table class="table table-hover table-borderless table-fixed">
 										<tbody>
-											<tr v-for="item in (settings.showMore && card.content.stgShowMore) ? card.content.stgFull : card.content.stg">
+											<tr v-for="item in (settings.showMore ? card.content.stgFull : card.content.stg)">
 												<td>
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
@@ -245,8 +217,6 @@
 													<div class="align-top text-nowrap text-right">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
-														<br v-if="settings.showReason">
-														<small :class="item.reasonColor" v-if="settings.showReason">{{item.reason}}</small>
 													</div>
 												</td>
 												<td>
@@ -259,23 +229,11 @@
 							</div>
 						</td>
 						<td>
-							<div :id="card.prdCardId" class="card card-options" :class="{ 'card-light' : cardIndex % 2 === 0}">
+							<div :id="card.prdCardId" class="card card-options border-strong-left" :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']">
 								<div class="card-body2">
-									<div class="row">
-										<div class="col">
-											<a :href="card.content.prd.length > 0 ? card.content.prd[0].uriReleaseLink : ''" target="_blank" class="card-title">
-												<span :class="card.badgeClassName">{{card.releaseTitle}}</span>
-											</a>
-										</div>
-										<div class="col text-xs-center text-sm-center text-right" v-if="settings.showMore && (card.content.prd.length !== card.content.prdFull.length)">
-											<a class="text-primary" @click="onShowMoreClick($event, 'prd')" class="card-title">
-												<span :cardid="card.id">{{ card.content.prdShowMore ? 'Show less' : 'Show more' }}</span>
-											</a>
-										</div>
-									</div>
 									<table class="table table-hover table-borderless table-fixed">
 										<tbody>
-											<tr v-for="item in (settings.showMore && card.content.prdShowMore) ? card.content.prdFull : card.content.prd">
+											<tr v-for="item in (settings.showMore ? card.content.prdFull : card.content.prd)">
 												<td>
 													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
 														{{item.releaseText}}
@@ -287,8 +245,6 @@
 													<div class="align-top text-nowrap text-right">
 														<i :class="item.statusIconClass"></i>
 														<span :class="item.statusTextClass">{{item.statusText}}</span>
-														<br v-if="settings.showReason">
-														<small :class="item.reasonColor" v-if="settings.showReason">{{item.reason}}</small>
 													</div>
 												</td>
 												<td>
@@ -305,6 +261,7 @@
 				<tfoot>
 					<tr style="height: 500px">
 						<td colspan="4">Releases: <span>{{filteredCards.length}}</span></td>
+						<td colspan="1" class="text-right" v-if="settings.autoRefresh">Refresh: <span>{{refresh.elapsedTime}} / {{refresh.interval}} sec</span></td>
 					</tr>
 				</tfoot>
 			</table>
@@ -312,6 +269,8 @@
 	</div>
 	<!-- Bootstrap -->
 	<script src="lib/bootstrap.min.js" type="text/javascript"></script>
+	<!-- Bootstrap Extension -->
+	<script src="lib/bootstrap-extension.min.js" type="text/javascript"></script>
 	<!-- VSS SDK -->
 	<script src="lib/VSS.SDK.min.js" type="text/javascript"></script>
 	<!-- Vue -->
@@ -323,6 +282,7 @@
 	<!-- Custom Script -->
 	<script src="lib/app.js" type="text/javascript"></script>
 	<script src="lib/dashboard.js"></script>
+	<script src="lib/refresh-window.js"></script>
 </body>
 
 </html>

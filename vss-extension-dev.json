@@ -2,10 +2,11 @@
 	"manifestVersion": 1,
 	"id": "dashboard-index-v2",
 	"publisher": "mediahub",
-	"version": "1.0.55",
+	"version": "1.0.50",
 	"name": "Releases MediaHub - v2",
 	"description": "Overview Releases Media Hub Index",
 	"public": false,
+	"baseUri": "https://localhost",
 	"categories": [
 		"Azure Pipelines"
 	],
@@ -108,10 +109,6 @@
 		},
 		{
 			"path": "lib/bootstrap-extension.min.js",
-			"addressable": true
-		},
-		{
-			"path": "lib/refresh-window.js",
 			"addressable": true
 		},
 
