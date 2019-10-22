@@ -42,11 +42,6 @@
 						</li>
 						<li >
 							<label>
-								<input type="checkbox" v-model="settings.showPhaseName"> <span class="smal text-white"> Show phase name</span> 
-							</label>
-						</li>
-						<li >
-							<label>
 								<input type="checkbox" v-model="settings.autoRefresh"> <span class="smal text-white"> Auto refresh</span> 
 							</label>
 						</li>
@@ -137,7 +132,7 @@
 				</thead>
 				<tbody>
 					<tr v-for="(card, cardIndex) in filteredCards">
-						<td style="padding-left:5px; line-height: 50px; overflow: hidden">
+						<td class="td-legend">
 							<div class="rotate-sm-l-90" :class="card.app.margin">
 								<a :href="card.content.dev.length > 0 ? card.content.dev[0].uriReleaseLink : ''" target="_blank" class="card-title">
 									<span :class="card.badgeClassName">{{card.app.title}}</span>
@@ -145,16 +140,15 @@
 							</div>
 						</td>
 						<td>
-							<div :id="card.devCardId" class="card card-options border-strong-left " :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']" >
-								<div class="card-body2">
-									<table class="table table-hover table-borderless table-fixed">
-										<tbody>
-											<tr v-for="item in (settings.showMore ? card.content.devFull : card.content.dev)">
+							<div :id="card.devCardId" class="card card-options border-strong-left p-1 " :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']" >
+								<table class="table table-hover table-borderless table-fixed">
+									<tbody>
+										<template v-for="item in (settings.showMore ? card.content.devFull : card.content.dev)">
+											<tr>
 												<td>
-													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
+													<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
 														{{item.releaseText}}
-														<br v-if="settings.showPhaseName">
-														<small class="text-muted" v-if="settings.showPhaseName">{{item.environmentFullName}}</small>
+														<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
 													</a>
 												</td>
 												<td>
@@ -167,23 +161,22 @@
 													<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
-										</tbody>										
-									</table>
-								</div>
+										</template>										
+									</tbody>										
+								</table>
 							</div>
 						</td>
 						<td>
-							<div :id="card.qaCardId" class="card card-options border-strong-left" :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']">
-								<div class="card-body2">
-									<table class="table table-hover table-borderless table-fixed">
-										<tbody>
-											<tr v-for="item in (settings.showMore ? card.content.qaFull : card.content.qa)">
+							<div :id="card.qaCardId" class="card card-options border-strong-left p-1 " :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']">
+								<table class="table table-hover table-borderless table-fixed">
+									<tbody>
+										<template v-for="item in (settings.showMore ? card.content.qaFull : card.content.qa)">
+											<tr>
 												<td>
-													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
+													<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
 														{{item.releaseText}}
+														<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
 													</a>
-													<br v-if="settings.showPhaseName">
-													<small class="text-muted" v-if="settings.showPhaseName">{{item.environmentFullName}}</small>
 												</td>
 												<td>
 													<div class="align-top text-nowrap text-right">
@@ -195,23 +188,22 @@
 													<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
-										</tbody>
-									</table>
-								</div>
+										</template>
+									</tbody>
+								</table>
 							</div>
 						</td>
 						<td>
-							<div :id="card.stgCardId" class="card card-options border-strong-left" :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']">
-								<div class="card-body2">
-									<table class="table table-hover table-borderless table-fixed">
-										<tbody>
-											<tr v-for="item in (settings.showMore ? card.content.stgFull : card.content.stg)">
+							<div :id="card.stgCardId" class="card card-options border-strong-left p-1 " :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']">
+								<table class="table table-hover table-borderless table-fixed">
+									<tbody>
+										<template v-for="item in (settings.showMore ? card.content.stgFull : card.content.stg)">
+											<tr>
 												<td>
-													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
+													<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
 														{{item.releaseText}}
+														<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
 													</a>
-													<br v-if="settings.showPhaseName">
-													<small class="text-muted" v-if="settings.showPhaseName">{{item.environmentFullName}}</small>
 												</td>
 												<td>
 													<div class="align-top text-nowrap text-right">
@@ -223,23 +215,22 @@
 													<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
-										</tbody>
-									</table>
-								</div>
+										</template>
+									</tbody>
+								</table>
 							</div>
 						</td>
 						<td>
-							<div :id="card.prdCardId" class="card card-options border-strong-left" :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']">
-								<div class="card-body2">
-									<table class="table table-hover table-borderless table-fixed">
-										<tbody>
-											<tr v-for="item in (settings.showMore ? card.content.prdFull : card.content.prd)">
+							<div :id="card.prdCardId" class="card card-options border-strong-left p-1 " :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']">
+								<table class="table table-hover table-borderless table-fixed">
+									<tbody>
+										<template v-for="item in (settings.showMore ? card.content.prdFull : card.content.prd)">
+											<tr>
 												<td>
-													<a class="dashboard-release" :href="item.uriReleasePipeline" target="_blank">
+													<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
 														{{item.releaseText}}
-													</a>													
-													<br v-if="settings.showPhaseName">
-													<small class="text-muted" v-if="settings.showPhaseName">{{item.environmentFullName}}</small>
+														<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
+													</a>
 												</td>
 												<td>
 													<div class="align-top text-nowrap text-right">
@@ -251,9 +242,14 @@
 													<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
 												</td>
 											</tr>
-										</tbody>
-									</table>
-								</div>
+											<tr v-if="settings.showPhaseName">
+												<td colspan="3">
+													<small class="text-muted" >{{item.environmentFullName}}</small>
+												</td>
+											</tr>											
+										</template>
+									</tbody>
+								</table>
 							</div>
 						</td>
 					</tr>

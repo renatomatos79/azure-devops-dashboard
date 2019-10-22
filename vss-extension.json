@@ -2,7 +2,7 @@
 	"manifestVersion": 1,
 	"id": "dashboard-index-v2",
 	"publisher": "mediahub",
-	"version": "1.0.55",
+	"version": "1.0.58",
 	"name": "Releases MediaHub - v2",
 	"description": "Overview Releases Media Hub Index",
 	"public": false,
