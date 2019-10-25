@@ -229,7 +229,7 @@ a.tip span {
     width: 125px;
     padding: 15px;
     z-index: 100;
-    background: #000;
+    background:#5f9dc1;
     color: #fff;
     -moz-border-radius: 5px; /* this works only in camino/firefox */
     -webkit-border-radius: 5px; /* this is just for Safari */
@@ -244,7 +244,7 @@ a.tip span:before{
     
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent; 
-    border-right:8px solid black;
+    border-right:8px solid #5f9dc1;
     left:-8px;
     
     top:31px;
@@ -256,4 +256,8 @@ a:hover.tip {
 
 a:hover.tip span {
     display: block;
+}
+
+a span p.font-weight-bold {
+    height: 7px;
 }

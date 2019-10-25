@@ -114,6 +114,10 @@
 			"path": "lib/refresh-window.js",
 			"addressable": true
 		},
+		{
+			"path": "lib/http-request.js",
+			"addressable": true
+		},
 
 		{
 			"path": "static/webfonts/fa-regular-400.woff",
