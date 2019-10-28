@@ -55,10 +55,6 @@
 		<!-- filter -->
 		<div class="row" v-if="filtered">
 			<div class="col">
-				<div class="text-center" v-if="isVssReady === false">
-					<img class="img-fluid" width="120" src="static/images/loading.gif" />
-				</div>
-
 				<form>
 					<div class="form-group input-group-sm mt-2">
 						<input id="filterContent" name="filterContent" type="text" class="form-control input-sm" id="searchFor" aria-describedby="searchFor" v-model="filterContent" placeholder="Search">
@@ -120,6 +116,10 @@
 		<!-- end filter -->
 
 		<div id="dashboard" class="table-wrapper-scroll-y my-custom-scrollbar mt-2">
+			<div class="text-center" v-if="isAppRunning === true">
+				<img class="img-fluid" width="120" src="static/images/loading.gif" />
+			</div>
+			
 			<table id="table-cards" class="table table-sm" cellspacing="0" width="100%">
 				<thead>
 					<tr>
@@ -135,119 +135,106 @@
 						<td class="td-legend">
 							<div class="rotate-sm-l-90" :class="card.app.margin">
 								<a :href="card.content.dev.length > 0 ? card.content.dev[0].uriReleaseLink : ''" target="_blank" class="card-title">
-									<span :class="card.badgeClassName">{{card.app.title}}</span>
+									<span :class="'badge badge-' + card.app.color + ' badge-card-title'" :title="card.content.dev[0].title">{{ card.app.title }}</span>
 								</a>
 							</div>
 						</td>
 						<td>
-							<div :id="card.devCardId" class="card card-options border-strong-left p-1 " :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']" >
+							<div class="card card-options border-strong-left p-1 " :class="['border-'+card.app.color, cardIndex % 2 === 0 ? 'card-light' : '']" >
 								<table class="table table-hover table-borderless table-fixed">
 									<tbody>
-										<template v-for="item in (settings.showMore ? card.content.devFull : card.content.dev)">
-											<tr>
-												<td>
-													<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
-														{{ item.releaseText }}
-														<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
-													</a>
-												</td>
-												<td>
-													<div class="align-top text-nowrap text-right">
-														<i :class="item.statusIconClass"></i>
-														<span :class="item.statusTextClass">{{item.statusText}}</span>
-													</div>
-												</td>
-												<td>
-													<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
-												</td>
-											</tr>
-										</template>										
+										<tr v-for="item in (settings.showMore ? card.content.devFull : card.content.dev)">
+											<td>
+												<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
+													{{ item.releaseText }}
+													<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
+												</a>
+											</td>
+											<td>
+												<div class="align-top text-nowrap text-right">
+													<i :class="item.statusIconClass"></i>
+													<span :class="item.statusTextClass">{{item.statusText}}</span>
+												</div>
+											</td>
+											<td>
+												<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
+											</td>
+										</tr>
 									</tbody>										
 								</table>
 							</div>
 						</td>
 						<td>
-							<div :id="card.qaCardId" class="card card-options border-strong-left p-1 " :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']">
+							<div class="card card-options border-strong-left p-1 " :class="['border-'+card.app.color, cardIndex % 2 === 0 ? 'card-light' : '']">
 								<table class="table table-hover table-borderless table-fixed">
 									<tbody>
-										<template v-for="item in (settings.showMore ? card.content.qaFull : card.content.qa)">
-											<tr>
-												<td>
-													<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
-														{{ item.releaseText }}
-														<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
-													</a>
-												</td>
-												<td>
-													<div class="align-top text-nowrap text-right">
-														<i :class="item.statusIconClass"></i>
-														<span :class="item.statusTextClass">{{item.statusText}}</span>
-													</div>
-												</td>
-												<td>
-													<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
-												</td>
-											</tr>
-										</template>
+										<tr v-for="item in (settings.showMore ? card.content.qaFull : card.content.qa)">
+											<td>
+												<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
+													{{ item.releaseText }}
+													<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
+												</a>
+											</td>
+											<td>
+												<div class="align-top text-nowrap text-right">
+													<i :class="item.statusIconClass"></i>
+													<span :class="item.statusTextClass">{{item.statusText}}</span>
+												</div>
+											</td>
+											<td>
+												<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
+											</td>
+										</tr>
 									</tbody>
 								</table>
 							</div>
 						</td>
 						<td>
-							<div :id="card.stgCardId" class="card card-options border-strong-left p-1 " :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']">
+							<div class="card card-options border-strong-left p-1 " :class="['border-'+card.app.color, cardIndex % 2 === 0 ? 'card-light' : '']">
 								<table class="table table-hover table-borderless table-fixed">
 									<tbody>
-										<template v-for="item in (settings.showMore ? card.content.stgFull : card.content.stg)">
-											<tr>
-												<td>
-													<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
-														{{ item.releaseText }}
-														<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
-													</a>
-												</td>
-												<td>
-													<div class="align-top text-nowrap text-right">
-														<i :class="item.statusIconClass"></i>
-														<span :class="item.statusTextClass">{{item.statusText}}</span>
-													</div>
-												</td>
-												<td>
-													<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
-												</td>
-											</tr>
-										</template>
+										<tr v-for="item in (settings.showMore ? card.content.stgFull : card.content.stg)">
+											<td>
+												<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
+													{{ item.releaseText }}
+													<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
+												</a>
+											</td>
+											<td>
+												<div class="align-top text-nowrap text-right">
+													<i :class="item.statusIconClass"></i>
+													<span :class="item.statusTextClass">{{item.statusText}}</span>
+												</div>
+											</td>
+											<td>
+												<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
+											</td>
+										</tr>
 									</tbody>
 								</table>
 							</div>
 						</td>
 						<td>
-							<div :id="card.prdCardId" class="card card-options border-strong-left p-1 " :class="['border-'+card.cardColor, cardIndex % 2 === 0 ? 'card-light' : '']">
+							<div class="card card-options border-strong-left p-1 " :class="['border-'+card.app.color, cardIndex % 2 === 0 ? 'card-light' : '']">
 								<table class="table table-hover table-borderless table-fixed">
 									<tbody>
-										<template v-for="item in (settings.showMore ? card.content.prdFull : card.content.prd)">
-											<tr>
-												<td>
-													<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
-														{{ item.releaseText }}
-														<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
-													</a>
-												</td>
-												<td>
-													<div class="align-top text-nowrap text-right">
-														<i :class="item.statusIconClass"></i>
-														<span :class="item.statusTextClass">{{item.statusText}}</span>
-													</div>
-												</td>
-												<td>
-													<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
-												</td>
-											</tr>
-											<tr v-if="settings.showPhaseName">
-												<td colspan="3">
-													<small class="text-muted" >{{item.environmentFullName}}</small>
-												</td>
-											</tr>											
-										</template>
+										<tr v-for="item in (settings.showMore ? card.content.prdFull : card.content.prd)">
+											<td>
+												<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
+													{{ item.releaseText }}
+													<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
+												</a>
+											</td>
+											<td>
+												<div class="align-top text-nowrap text-right">
+													<i :class="item.statusIconClass"></i>
+													<span :class="item.statusTextClass">{{item.statusText}}</span>
+												</div>
+											</td>
+											<td>
+												<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText" class="far align-top fa-clipboard dashboard-card-icon" @click="onReleaseItemClick($event)"></a>
+											</td>
+										</tr>
 									</tbody>
 								</table>
 							</div>
