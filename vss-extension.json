@@ -1,11 +1,12 @@
 {
 	"manifestVersion": 1,
 	"id": "dashboard-index-v2",
-	"publisher": "mediahub",
-	"version": "1.0.58",
-	"name": "Releases MediaHub - v2",
-	"description": "Overview Releases Media Hub Index",
+	"publisher": "RenatoCorreiadeMatos",
+	"version": "1.0.59",
+	"name": "Releases MH - DashBoard",
+	"description": "Releases MH - DashBoard",
 	"public": false,
+	"baseUri": "https://localhost",
 	"categories": [
 		"Azure Pipelines"
 	],
@@ -116,6 +117,14 @@
 		},
 		{
 			"path": "lib/http-request.js",
+			"addressable": true
+		},
+		{
+			"path": "lib/database.js",
+			"addressable": true
+		},
+		{
+			"path": "lib/util.js",
 			"addressable": true
 		},
 
