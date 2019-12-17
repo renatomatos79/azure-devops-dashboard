@@ -37,12 +37,14 @@
 					<ul :class="['dropdown-menu checkbox-menu bg-info allow-focus mt-3 dropdown-menu-right ', settings.show ? 'show' : 'hide']">
 						<li >
 							<label>
-								<input type="checkbox" v-model="settings.showMore"> <span class="smal text-white"> Show more</span> 
+								<input type="checkbox" v-model="settings.showOutputLog" > 
+								<span class="smal text-white"> Output log</span> 
 							</label>
 						</li>
 						<li >
 							<label>
-								<input type="checkbox" v-model="settings.autoRefresh"> <span class="smal text-white"> Auto refresh</span> 
+								<input type="checkbox" v-model="settings.autoRefresh" > 
+								<span class="smal text-white"> Auto refresh</span> 
 							</label>
 						</li>
 					</ul>
@@ -133,12 +135,20 @@
 					</tr>
 				</thead>
 				<tbody>
+					<tr>
+						<td colspan="5" class="text-center" v-if="filteredCards.length === 0">
+							<span>No Content</span>
+						</td>
+					</tr>
+					
 					<tr v-for="(card, cardIndex) in filteredCards">
 						<td class="td-legend">
-							<div class="rotate-sm-l-90" :class="card.app.margin">
-								<a :href="card.content.dev.length > 0 ? card.content.dev[0].uriReleaseLink : ''" target="_blank" class="card-title">
-									<span :class="'badge badge-' + card.app.color + ' badge-card-title'" :title="card.content.dev[0].title">{{ card.app.title }}</span>
-								</a>
+							<div class="row" :class="card.app.margin">
+								<div class="rotate-sm-l-90">
+									<a :href="card.content.dev.length > 0 ? card.content.dev[0].uriReleaseLink : ''" target="_blank" class="card-title">
+										<span :class="'badge badge-' + card.app.color + ' badge-card-title'" :title="card.content.dev.length > 0 ? card.content.dev[0].definitionName : '' ">{{ card.app.title }}</span>
+									</a>
+								</div>
 							</div>
 						</td>
 						<td>
@@ -266,6 +276,7 @@
 	<script src="lib/axios.min.js" type="text/javascript"></script>
 	<!-- Custom Script -->
 	<script src="lib/util.js"></script>
+	<script src="lib/storage.js"></script>
 	<script src="lib/http-request.js"></script>
 	<script src="lib/app.js" type="text/javascript"></script>
 	<script src="lib/database.js"></script>

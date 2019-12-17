@@ -201,7 +201,7 @@ a.dashboard-release {
 }
 
 .td-legend {
-    padding-left:5px; line-height: 40px; overflow: hidden
+    line-height: 40px; overflow: hidden; width: 40px;
 }
 
 card-body2 table body tr td:nth-child(0) {

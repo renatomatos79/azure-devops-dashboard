@@ -127,6 +127,10 @@
 			"path": "lib/util.js",
 			"addressable": true
 		},
+		{
+			"path": "lib/storage.js",
+			"addressable": true
+		},
 
 		{
 			"path": "static/webfonts/fa-regular-400.woff",
