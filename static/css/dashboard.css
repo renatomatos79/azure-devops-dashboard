@@ -216,6 +216,9 @@ card-body2 table body tr td:nth-child(2) {
     width: 10%;
 }
 
+#filterContent {
+    width: 200px;
+}
 
 a.tip {
     position: relative;
