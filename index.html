@@ -155,11 +155,16 @@
 							<div class="card card-options border-strong-left p-1 " :class="['border-'+card.app.color, cardIndex % 2 === 0 ? 'card-light' : '']" >
 								<table class="table table-hover table-borderless table-fixed">
 									<tbody>
-										<tr v-for="item in (settings.showMore ? card.content.devFull : card.content.dev)">
+										<tr v-for="item in card.content.dev">
 											<td>
 												<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
 													{{ item.releaseText }}
-													<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
+													<span>
+														<p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}
+														<template v-if="item.releaseText !== item.releaseTextComplete">
+															<p class="font-weight-bold">Original release: </p>{{item.releaseTextComplete}}
+														</template>
+													</span>
 												</a>
 											</td>
 											<td>
@@ -180,11 +185,16 @@
 							<div class="card card-options border-strong-left p-1 " :class="['border-'+card.app.color, cardIndex % 2 === 0 ? 'card-light' : '']">
 								<table class="table table-hover table-borderless table-fixed">
 									<tbody>
-										<tr v-for="item in (settings.showMore ? card.content.qaFull : card.content.qa)">
+										<tr v-for="item in card.content.qa">
 											<td>
 												<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
 													{{ item.releaseText }}
-													<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
+													<span>
+														<p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}
+														<template v-if="item.releaseText !== item.releaseTextComplete">
+															<p class="font-weight-bold">Original release: </p>{{item.releaseTextComplete}}
+														</template>
+													</span>
 												</a>
 											</td>
 											<td>
@@ -205,11 +215,16 @@
 							<div class="card card-options border-strong-left p-1 " :class="['border-'+card.app.color, cardIndex % 2 === 0 ? 'card-light' : '']">
 								<table class="table table-hover table-borderless table-fixed">
 									<tbody>
-										<tr v-for="item in (settings.showMore ? card.content.stgFull : card.content.stg)">
+										<tr v-for="item in card.content.stg">
 											<td>
 												<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
 													{{ item.releaseText }}
-													<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
+													<span>
+														<p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}
+														<template v-if="item.releaseText !== item.releaseTextComplete">
+															<p class="font-weight-bold">Original release: </p>{{item.releaseTextComplete}}
+														</template>
+													</span>
 												</a>
 											</td>
 											<td>
@@ -230,11 +245,16 @@
 							<div class="card card-options border-strong-left p-1 " :class="['border-'+card.app.color, cardIndex % 2 === 0 ? 'card-light' : '']">
 								<table class="table table-hover table-borderless table-fixed">
 									<tbody>
-										<tr v-for="item in (settings.showMore ? card.content.prdFull : card.content.prd)">
+										<tr v-for="item in card.content.prd">
 											<td>
 												<a class="tip" :href="item.uriReleasePipeline" target="_blank" >
 													{{ item.releaseText }}
-													<span><p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}</span>
+													<span>
+														<p class="font-weight-bold">Phase: </p>{{item.environmentFullName}}
+														<template v-if="item.releaseText !== item.releaseTextComplete">
+															<p class="font-weight-bold">Original release: </p>{{item.releaseTextComplete}}
+														</template>
+													</span>
 												</a>
 											</td>
 											<td>
