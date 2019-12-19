@@ -1,12 +1,11 @@
 {
 	"manifestVersion": 1,
 	"id": "dashboard-index-v2",
-	"publisher": "RenatoCorreiadeMatos",
-	"version": "1.0.59",
+	"publisher": "mediahub",
+	"version": "1.0.60",
 	"name": "Releases MH - DashBoard",
 	"description": "Releases MH - DashBoard",
 	"public": false,
-	"baseUri": "https://localhost",
 	"categories": [
 		"Azure Pipelines"
 	],
