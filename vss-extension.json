@@ -2,7 +2,7 @@
 	"manifestVersion": 1,
 	"id": "dashboard-index-v2",
 	"publisher": "mediahub",
-	"version": "1.0.62",
+	"version": "1.0.63",
 	"name": "Releases MH - DashBoard",
 	"description": "Releases MH - DashBoard",
 	"public": false,
@@ -36,7 +36,7 @@
 				"ms.vss-build-web.build-release-hub-group"
 			],
 			"properties": {
-				"name": "Releases MediaHub - Overview v2",
+				"name": "Releases MH - DashBoard",
 				"uri": "index.html"
 			}
 		},
@@ -59,7 +59,6 @@
 			"path": "work-items-list.html",
 			"addressable": true
 		},
-
 
 		{
 			"path": "static/css/dashboard.css",
