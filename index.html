@@ -54,6 +54,9 @@
 								<span class="small text-white"> Auto refresh</span> 
 							</label>
 						</li>
+						<li v-if="settings.autoRefresh" class="text-center mt-2" style="border-top: 1px solid white">
+							<input type="number" class="form-control input-sm" :min="refresh.intervalMinValue" :max="refresh.intervalMaxValue" v-model="refresh.inputInterval" >
+						</li>
 						<li class="text-center mt-2" style="border-top: 1px solid white">
 							<span class="small text-white"> Version: {{ version }}</span>
 						</li>

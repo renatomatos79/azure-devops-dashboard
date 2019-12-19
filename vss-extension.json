@@ -120,10 +120,6 @@
 			"addressable": true
 		},
 		{
-			"path": "lib/database.js",
-			"addressable": true
-		},
-		{
 			"path": "lib/util.js",
 			"addressable": true
 		},
