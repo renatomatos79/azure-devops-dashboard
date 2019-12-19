@@ -2,7 +2,7 @@
 	"manifestVersion": 1,
 	"id": "dashboard-index-v2",
 	"publisher": "mediahub",
-	"version": "1.0.64",
+	"version": "1.0.65",
 	"name": "Releases MH - DashBoard",
 	"description": "Releases MH - DashBoard",
 	"public": false,
