@@ -296,7 +296,8 @@
 												</div>
 											</td>
 											<td>
-												<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText"
+												<a v-if="item.workItems.length > 0" 
+													:bc="card.app.color" :bid="item.buildId" :rt="item.releaseText"
 													:definitionName="item.definitionName"
 													class="far align-top fa-clipboard dashboard-card-icon"
 													@click="onReleaseItemClick($event)"></a>
@@ -332,7 +333,8 @@
 												</div>
 											</td>
 											<td>
-												<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText"
+												<a v-if="item.workItems.length > 0" 
+													:bc="card.app.color" :bid="item.buildId" :rt="item.releaseText"
 													:definitionName="item.definitionName"
 													class="far align-top fa-clipboard dashboard-card-icon"
 													@click="onReleaseItemClick($event)"></a>
@@ -368,7 +370,8 @@
 												</div>
 											</td>
 											<td>
-												<a :bc="card.app.color" :bid="item.buildId" :rt="item.releaseText"
+												<a v-if="item.workItems.length > 0" 
+													:bc="card.app.color" :bid="item.buildId" :rt="item.releaseText"
 													:definitionName="item.definitionName"
 													class="far align-top fa-clipboard dashboard-card-icon"
 													@click="onReleaseItemClick($event)"></a>
@@ -409,7 +412,8 @@
 												</div>
 											</td>
 											<td>
-												<a 	:bc="card.app.color" :bid="item.buildId" :rt="item.releaseText"
+												<a v-if="item.workItems.length > 0" 
+													:bc="card.app.color" :bid="item.buildId" :rt="item.releaseText"
 												   	:definitionName="item.definitionName"
 													class="far align-top fa-clipboard dashboard-card-icon"
 													@click="onReleaseItemClick($event)"></a>
