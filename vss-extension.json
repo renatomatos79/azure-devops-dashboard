@@ -1,11 +1,12 @@
 {
 	"manifestVersion": 1,
 	"id": "dashboard-index-v2",
-	"publisher": "mediahub",
-	"version": "1.0.67",
+	"publisher": "RenatoCorreiadeMatos",
+	"version": "1.0.68",
 	"name": "Releases MH - DashBoard",
 	"description": "Releases MH - DashBoard",
 	"public": false,
+	"baseUri": "https://localhost",
 	"categories": [
 		"Azure Pipelines"
 	],
@@ -39,24 +40,11 @@
 				"name": "Releases MH - DashBoard",
 				"uri": "index.html"
 			}
-		},
-		{
-			"id": "work-items-list",
-			"type": "ms.vss-web.control",
-			"description": "The content to be displayed in the dialog",
-			"targets": [],
-			"properties": {
-				"uri": "work-items-list.html?id={{id}}&name={{releaseName}}&color={{badgeColor}}"
-			}
 		}
 	],
 	"files": [
 		{
 			"path": "index.html",
-			"addressable": true
-		},
-		{
-			"path": "work-items-list.html",
 			"addressable": true
 		},
 
@@ -82,23 +70,23 @@
 		},
 
 		{
-			"path": "lib/VSS.SDK.min.js",
+			"path": "lib/vss/VSS.SDK.min.js",
 			"addressable": true
 		},
 		{
-			"path": "lib/Vue.js",
+			"path": "lib/vue/Vue.js",
 			"addressable": true
 		},
 		{
-			"path": "lib/lodash.min.js",
+			"path": "lib/lodash/lodash.min.js",
 			"addressable": true
 		},
 		{
-			"path": "lib/axios.min.js",
+			"path": "lib/axios/axios.min.js",
 			"addressable": true
 		},
 		{
-			"path": "lib/bootstrap.min.js",
+			"path": "lib/bootstrap/bootstrap.min.js",
 			"addressable": true
 		},
 		{
@@ -106,11 +94,15 @@
 			"addressable": true
 		},
 		{
+			"path": "lib/dashboard-client.js",
+			"addressable": true
+		},
+		{
 			"path": "lib/app.js",
 			"addressable": true
 		},
 		{
-			"path": "lib/bootstrap-extension.min.js",
+			"path": "lib/bootstrap/bootstrap-extension.min.js",
 			"addressable": true
 		},
 		{
@@ -118,7 +110,11 @@
 			"addressable": true
 		},
 		{
-			"path": "lib/http-request.js",
+			"path": "lib/http-client.js",
+			"addressable": true
+		},
+		{
+			"path": "lib/log.js",
 			"addressable": true
 		},
 		{
@@ -130,11 +126,11 @@
 			"addressable": true
 		},
 		{
-			"path": "lib/jquery-1.12.4.js",
+			"path": "lib/jquery/jquery-1.12.4.js",
 			"addressable": true
 		},
 		{
-			"path": "lib/jquery-ui-1.12.1.js",
+			"path": "lib/jquery/jquery-ui-1.12.1.js",
 			"addressable": true
 		},
 
