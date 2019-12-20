@@ -1,11 +1,12 @@
 {
 	"manifestVersion": 1,
 	"id": "dashboard-index-v2",
-	"publisher": "mediahub",
-	"version": "1.0.65",
+	"publisher": "RenatoCorreiadeMatos",
+	"version": "1.0.66",
 	"name": "Releases MH - DashBoard",
 	"description": "Releases MH - DashBoard",
 	"public": false,
+	"baseUri": "https://localhost",
 	"categories": [
 		"Azure Pipelines"
 	],
@@ -76,6 +77,10 @@
 			"path": "static/css/bootstrap-extension.min.css",
 			"addressable": true
 		},
+		{
+			"path": "static/css/jquery-ui-1.12.1.css",
+			"addressable": true
+		},
 
 		{
 			"path": "lib/VSS.SDK.min.js",
@@ -123,6 +128,14 @@
 		},
 		{
 			"path": "lib/storage.js",
+			"addressable": true
+		},
+		{
+			"path": "lib/jquery-1.12.4.js",
+			"addressable": true
+		},
+		{
+			"path": "lib/jquery-ui-1.12.1.js",
 			"addressable": true
 		},
 
